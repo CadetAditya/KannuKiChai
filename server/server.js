@@ -5,6 +5,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import store from './store.js';
 import { setupRealtime, getLivePayload } from './realtime.js';
+import routes from './routes.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -32,11 +33,15 @@ app.get('/api/status', (req, res) => {
   res.json(getLivePayload());
 });
 
+// Mount Operator & Admin API routes
+app.use('/api', routes);
+
 const PORT = process.env.PORT || 4000;
 
 export { app, server, PORT };
 
-if (process.env.NODE_ENV !== 'test') {
+const isMain = process.argv[1] && process.argv[1].endsWith('server.js');
+if (isMain && process.env.NODE_ENV !== 'test') {
   server.listen(PORT, () => {
     console.log(`☕ Kannu ki Chai server running on http://localhost:${PORT}`);
   });
