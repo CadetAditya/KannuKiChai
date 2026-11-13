@@ -186,7 +186,7 @@ export default function SecurityTab() {
           </h4>
         </div>
         <p className="text-[11px] text-[#8a7263]">
-          Simple 4-digit PIN for the chai tapri boy or operator (default: 1234)
+          Simple 4-digit PIN for the chai tapri operator
         </p>
 
         <div className="grid grid-cols-2 gap-2">
@@ -234,7 +234,7 @@ export default function SecurityTab() {
           </h4>
         </div>
         <p className="text-[11px] text-[#8a7263]">
-          Master control PIN for you as store owner (default: 9999)
+          Master control PIN for store management
         </p>
 
         <div className="grid grid-cols-2 gap-2">

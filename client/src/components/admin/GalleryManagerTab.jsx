@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { useRealtime } from '../../context/RealtimeContext';
 import { Upload, Trash2, Check, Plus, Image, Eye, EyeOff, Sparkles, AlertCircle, Link, CheckCircle, XCircle, Clock, User, Heart } from 'lucide-react';
 import { sound } from '../../utils/sound';
+import { compressImage } from '../../utils/imageCompress';
 
 export default function GalleryManagerTab() {
   const { gallery, moments, authPin, refresh } = useRealtime();
@@ -76,7 +77,7 @@ export default function GalleryManagerTab() {
   };
 
   // Background Photos Handlers
-  const handleFileUpload = (e) => {
+  const handleFileUpload = async (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
@@ -85,50 +86,54 @@ export default function GalleryManagerTab() {
       return showMsg('Please select an image file (JPG, PNG, WebP).');
     }
 
-    if (file.size > 10 * 1024 * 1024) {
-      sound.playWarning();
-      return showMsg('Image file size must be under 10MB.');
-    }
+    setUploading(true);
+    sound.playTap();
 
-    const reader = new FileReader();
-    reader.onload = async () => {
-      setUploading(true);
-      sound.playTap();
-
+    try {
+      // Compress and optimize image
+      let base64;
       try {
-        const base64 = reader.result;
-        const res = await fetch('/api/admin/gallery/upload', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'x-admin-pin': authPin
-          },
-          body: JSON.stringify({
-            title: photoTitle.trim() || file.name.replace(/\.[^/.]+$/, ''),
-            base64,
-            filename: file.name
-          })
-        });
-
-        const data = await res.json();
-        if (res.ok && data.success) {
-          sound.playSuccess();
-          showMsg('Photo uploaded and added to background rotation! ✨');
-          setPhotoTitle('');
-          if (fileInputRef.current) fileInputRef.current.value = '';
-          refresh();
-        } else {
-          sound.playWarning();
-          showMsg(data.error || 'Failed to upload photo');
-        }
+        base64 = await compressImage(file, 1600, 1600, 0.85);
       } catch (err) {
-        sound.playWarning();
-        showMsg('Network error uploading photo');
-      } finally {
-        setUploading(false);
+        // Fallback to FileReader
+        base64 = await new Promise((res, rej) => {
+          const r = new FileReader();
+          r.onload = () => res(r.result);
+          r.onerror = rej;
+          r.readAsDataURL(file);
+        });
       }
-    };
-    reader.readAsDataURL(file);
+
+      const res = await fetch('/api/admin/gallery/upload', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-admin-pin': authPin
+        },
+        body: JSON.stringify({
+          title: photoTitle.trim() || file.name.replace(/\.[^/.]+$/, ''),
+          base64,
+          filename: file.name
+        })
+      });
+
+      const data = await res.json();
+      if (res.ok && data.success) {
+        sound.playSuccess();
+        showMsg('Photo uploaded and added to background rotation! ✨');
+        setPhotoTitle('');
+        if (fileInputRef.current) fileInputRef.current.value = '';
+        refresh();
+      } else {
+        sound.playWarning();
+        showMsg(data.error || 'Failed to upload photo');
+      }
+    } catch (err) {
+      sound.playWarning();
+      showMsg('Upload failed. Please check your network and try again.');
+    } finally {
+      setUploading(false);
+    }
   };
 
   const handleAddByUrl = async (e) => {

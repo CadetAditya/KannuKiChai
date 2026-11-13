@@ -1,12 +1,14 @@
 import React, { useState, useRef } from 'react';
-import { X, Camera, Image, Upload, CheckCircle2, Sparkles, AlertCircle } from 'lucide-react';
+import { X, Camera, Image, Upload, CheckCircle2, Sparkles, AlertCircle, Loader2 } from 'lucide-react';
 import { sound } from '../utils/sound';
+import { compressImage } from '../utils/imageCompress';
 
 export default function ShareMomentModal({ isOpen, onClose }) {
   const [photoPreview, setPhotoPreview] = useState(null);
   const [base64Data, setBase64Data] = useState('');
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
+  const [compressing, setCompressing] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
@@ -14,7 +16,7 @@ export default function ShareMomentModal({ isOpen, onClose }) {
 
   if (!isOpen) return null;
 
-  const handleFileChange = (e) => {
+  const handleFileChange = async (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
@@ -23,19 +25,26 @@ export default function ShareMomentModal({ isOpen, onClose }) {
       return;
     }
 
-    if (file.size > 10 * 1024 * 1024) {
-      setError('Photo size should be under 10MB.');
-      return;
-    }
-
     setError('');
-    const reader = new FileReader();
-    reader.onload = () => {
-      setPhotoPreview(reader.result);
-      setBase64Data(reader.result);
+    setCompressing(true);
+    try {
+      // Compress and optimize image to ensure fast, reliable upload
+      const optimizedBase64 = await compressImage(file, 1280, 1280, 0.82);
+      setPhotoPreview(optimizedBase64);
+      setBase64Data(optimizedBase64);
       sound.playTap();
-    };
-    reader.readAsDataURL(file);
+    } catch (err) {
+      // Fallback to FileReader if compression fails
+      const reader = new FileReader();
+      reader.onload = () => {
+        setPhotoPreview(reader.result);
+        setBase64Data(reader.result);
+        sound.playTap();
+      };
+      reader.readAsDataURL(file);
+    } finally {
+      setCompressing(false);
+    }
   };
 
   const handleSubmit = async (e) => {
