@@ -10,6 +10,7 @@ import StudentMenu from './components/StudentMenu';
 import PinModal from './components/PinModal';
 import OperatorView from './components/OperatorView';
 import AdminDashboard from './components/admin/AdminDashboard';
+import InstallPrompt from './components/InstallPrompt';
 
 function Header() {
   const { settings, activeViewers, connected } = useRealtime();
@@ -121,6 +122,9 @@ function MainContent() {
 
       {/* Security PIN Keypad Modal */}
       <PinModal isOpen={showPinModal} onClose={() => setShowPinModal(false)} />
+
+      {/* PWA Home Screen Prompt */}
+      <InstallPrompt />
     </div>
   );
 }

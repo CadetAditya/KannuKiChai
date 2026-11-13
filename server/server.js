@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import http from 'http';
 import path from 'path';
+import fs from 'fs';
 import { fileURLToPath } from 'url';
 import store from './store.js';
 import { setupRealtime, getLivePayload } from './realtime.js';
@@ -35,6 +36,26 @@ app.get('/api/status', (req, res) => {
 
 // Mount Operator & Admin API routes
 app.use('/api', routes);
+
+// Serve PWA manifest, service worker, and icons
+const distPath = path.join(__dirname, '..', 'dist');
+const clientPath = path.join(__dirname, '..', 'client');
+
+app.use('/manifest.webmanifest', express.static(path.join(clientPath, 'manifest.webmanifest')));
+app.use('/sw.js', express.static(path.join(clientPath, 'sw.js')));
+app.use('/favicon.svg', express.static(path.join(clientPath, 'favicon.svg')));
+
+// Serve built frontend assets
+if (fs.existsSync(distPath)) {
+  app.use(express.static(distPath));
+  app.get('*', (req, res, next) => {
+    if (req.path.startsWith('/api') || req.path.startsWith('/ws')) return next();
+    res.sendFile(path.join(distPath, 'index.html'));
+  });
+} else {
+  // Fallback to serving raw client for dev
+  app.use(express.static(clientPath));
+}
 
 const PORT = process.env.PORT || 4000;
 
