@@ -12,6 +12,7 @@ import OperatorView from './components/OperatorView';
 import AdminDashboard from './components/admin/AdminDashboard';
 import InstallPrompt from './components/InstallPrompt';
 import AestheticBackground from './components/AestheticBackground';
+import YesterdaysMoments from './components/YesterdaysMoments';
 
 function Header() {
   const { settings, activeViewers, connected } = useRealtime();
@@ -87,11 +88,14 @@ function MainContent() {
           <OperatorView />
         ) : (
           <div className="py-2 space-y-4">
-            {/* Only Show Whether the Shop is Opened or Closed */}
-            <StatusCard />
+            {/* 1. Large High-Contrast Status Card (OPEN / CLOSED) */}
+            <StatusCard onOpenSchedule={() => setShowSchedule(true)} />
+
+            {/* 2. Yesterday's Moments with Share Option & Admin Approval */}
+            <YesterdaysMoments />
 
             {/* Footer with Discreet Staff Padlock */}
-            <footer className="pt-8 pb-4 text-center space-y-2">
+            <footer className="pt-6 pb-4 text-center space-y-2">
               <p className="text-[11px] text-stone-400">
                 Kannu ki Chai • Campus Tapri Live Status ☕
               </p>

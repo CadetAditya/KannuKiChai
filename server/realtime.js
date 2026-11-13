@@ -130,6 +130,7 @@ export function getLivePayload() {
     settings: state.settings,
     menu: state.menu,
     gallery: state.gallery || [],
+    moments: state.moments || [],
     operatorEnabled: state.auth.operatorEnabled,
     activeViewers: getClientCount(),
     serverTime: new Date().toISOString()

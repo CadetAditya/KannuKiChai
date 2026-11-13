@@ -180,6 +180,58 @@ const DEFAULT_STATE = {
       addedAt: new Date().toISOString()
     }
   ],
+  moments: [
+    {
+      id: 'moment-1',
+      title: 'Hostel Chai Cheers',
+      url: '/gallery/chai-cheers.jpg',
+      author: 'Hostel 4 Gang',
+      time: 'Yesterday, 8:15 PM',
+      status: 'approved',
+      likes: 42,
+      submittedAt: new Date(Date.now() - 24 * 3600 * 1000).toISOString()
+    },
+    {
+      id: 'moment-2',
+      title: 'Winter Kulhad Warmth',
+      url: '/gallery/kulhad-winter.jpg',
+      author: 'Sneha & Priya',
+      time: 'Yesterday, 6:30 PM',
+      status: 'approved',
+      likes: 38,
+      submittedAt: new Date(Date.now() - 26 * 3600 * 1000).toISOString()
+    },
+    {
+      id: 'moment-3',
+      title: 'Ek Chai Wali Dosti',
+      url: '/gallery/ek-chai-dosti.jpg',
+      author: 'Mechanical Dept Regulars',
+      time: 'Yesterday, 5:45 PM',
+      status: 'approved',
+      likes: 56,
+      submittedAt: new Date(Date.now() - 27 * 3600 * 1000).toISOString()
+    },
+    {
+      id: 'moment-4',
+      title: 'Smiley Tapri Cups',
+      url: '/gallery/cute-cups.jpg',
+      author: 'Library Study Group',
+      time: 'Yesterday, 4:20 PM',
+      status: 'approved',
+      likes: 29,
+      submittedAt: new Date(Date.now() - 28 * 3600 * 1000).toISOString()
+    },
+    {
+      id: 'moment-5',
+      title: 'Evening Hostel Circle',
+      url: '/gallery/hostel-circle.jpg',
+      author: 'Hostel 2 & 3 Friends',
+      time: 'Yesterday, 9:00 PM',
+      status: 'approved',
+      likes: 67,
+      submittedAt: new Date(Date.now() - 23 * 3600 * 1000).toISOString()
+    }
+  ],
   logs: [
     {
       id: 'log-1',
@@ -213,6 +265,7 @@ class Store {
           auth: { ...DEFAULT_STATE.auth, ...(parsed.auth || {}) },
           menu: Array.isArray(parsed.menu) ? parsed.menu : DEFAULT_STATE.menu,
           gallery: Array.isArray(parsed.gallery) && parsed.gallery.length > 0 ? parsed.gallery : DEFAULT_STATE.gallery,
+          moments: Array.isArray(parsed.moments) && parsed.moments.length > 0 ? parsed.moments : DEFAULT_STATE.moments,
           logs: Array.isArray(parsed.logs) ? parsed.logs : DEFAULT_STATE.logs
         };
       } else {
@@ -371,6 +424,68 @@ class Store {
     this.persist();
     this.notify('GALLERY_UPDATED', this.data.gallery);
     return photo;
+  }
+
+  submitMoment(momentData) {
+    if (!this.data.moments) this.data.moments = [];
+    const newMoment = {
+      id: `moment-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`,
+      title: momentData.title?.trim() || 'Tapri Moment',
+      author: momentData.author?.trim() || 'Campus Student',
+      url: momentData.url,
+      time: 'Just now',
+      status: 'pending', // Requires admin approval!
+      likes: 0,
+      submittedAt: new Date().toISOString()
+    };
+    this.data.moments.unshift(newMoment);
+    this.addLog('Student', 'MOMENT_SUBMIT', `New photo submitted by "${newMoment.author}": "${newMoment.title}" (Pending Approval)`);
+    this.persist();
+    this.notify('MOMENTS_UPDATED', this.data.moments);
+    return newMoment;
+  }
+
+  approveMoment(momentId, actor = 'Super Admin') {
+    if (!this.data.moments) return null;
+    const moment = this.data.moments.find(m => m.id === momentId);
+    if (!moment) return null;
+    moment.status = 'approved';
+    this.addLog(actor, 'MOMENT_APPROVE', `Approved student moment: "${moment.title}" by ${moment.author}`);
+    this.persist();
+    this.notify('MOMENTS_UPDATED', this.data.moments);
+    return moment;
+  }
+
+  rejectMoment(momentId, actor = 'Super Admin') {
+    if (!this.data.moments) return false;
+    const moment = this.data.moments.find(m => m.id === momentId);
+    if (!moment) return false;
+    moment.status = 'rejected';
+    this.addLog(actor, 'MOMENT_REJECT', `Rejected student moment: "${moment.title}"`);
+    this.persist();
+    this.notify('MOMENTS_UPDATED', this.data.moments);
+    return true;
+  }
+
+  deleteMoment(momentId, actor = 'Super Admin') {
+    if (!this.data.moments) return false;
+    const moment = this.data.moments.find(m => m.id === momentId);
+    if (!moment) return false;
+    this.data.moments = this.data.moments.filter(m => m.id !== momentId);
+    this.addLog(actor, 'MOMENT_DELETE', `Deleted moment: "${moment.title}"`);
+    this.persist();
+    this.notify('MOMENTS_UPDATED', this.data.moments);
+    return true;
+  }
+
+  likeMoment(momentId) {
+    if (!this.data.moments) return null;
+    const moment = this.data.moments.find(m => m.id === momentId);
+    if (!moment) return null;
+    moment.likes = (moment.likes || 0) + 1;
+    this.persist();
+    this.notify('MOMENTS_UPDATED', this.data.moments);
+    return moment;
   }
 
   clearLogs(actor = 'Super Admin') {

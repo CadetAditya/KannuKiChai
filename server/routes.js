@@ -364,4 +364,113 @@ router.patch('/admin/gallery/:id/toggle', requireAdmin, (req, res) => {
   });
 });
 
+// 9. Community Moments ("Yesterday's Moments" & Student Submissions)
+router.get('/moments', (req, res) => {
+  const state = store.getState();
+  const approved = (state.moments || []).filter(m => m.status === 'approved');
+  res.json({
+    moments: approved
+  });
+});
+
+router.post('/moments/submit', (req, res) => {
+  const { title, author, base64, filename } = req.body;
+  if (!base64) {
+    return res.status(400).json({ error: 'Photo is required.' });
+  }
+
+  try {
+    if (!fs.existsSync(UPLOADS_DIR)) {
+      fs.mkdirSync(UPLOADS_DIR, { recursive: true });
+    }
+
+    const matches = base64.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
+    let buffer;
+    let ext = '.jpg';
+
+    if (matches && matches.length === 3) {
+      const mime = matches[1];
+      if (mime.includes('png')) ext = '.png';
+      else if (mime.includes('webp')) ext = '.webp';
+      buffer = Buffer.from(matches[2], 'base64');
+    } else {
+      buffer = Buffer.from(base64, 'base64');
+    }
+
+    const safeName = `moment-${Date.now()}-${Math.random().toString(36).substring(2, 6)}${ext}`;
+    const filePath = path.join(UPLOADS_DIR, safeName);
+    fs.writeFileSync(filePath, buffer);
+
+    const publicUrl = `/uploads/${safeName}`;
+    const newMoment = store.submitMoment({
+      title: title || 'Campus Chai Memory',
+      author: author || 'Campus Student',
+      url: publicUrl
+    });
+
+    res.json({
+      success: true,
+      message: 'Photo submitted successfully! It will appear on Yesterday\'s Moments after admin approval.',
+      moment: newMoment
+    });
+  } catch (err) {
+    console.error('Moment submission error:', err);
+    res.status(500).json({ error: 'Failed to upload moment' });
+  }
+});
+
+router.post('/moments/:id/like', (req, res) => {
+  const { id } = req.params;
+  const updated = store.likeMoment(id);
+  if (!updated) {
+    return res.status(404).json({ error: 'Moment not found.' });
+  }
+  res.json({ success: true, likes: updated.likes });
+});
+
+router.get('/admin/moments', requireAdmin, (req, res) => {
+  const state = store.getState();
+  res.json({
+    moments: state.moments || []
+  });
+});
+
+router.post('/admin/moments/:id/approve', requireAdmin, (req, res) => {
+  const { id } = req.params;
+  const approved = store.approveMoment(id, req.actor);
+  if (!approved) {
+    return res.status(404).json({ error: 'Moment not found.' });
+  }
+  res.json({
+    success: true,
+    moment: approved,
+    moments: store.getState().moments
+  });
+});
+
+router.post('/admin/moments/:id/reject', requireAdmin, (req, res) => {
+  const { id } = req.params;
+  const rejected = store.rejectMoment(id, req.actor);
+  if (!rejected) {
+    return res.status(404).json({ error: 'Moment not found.' });
+  }
+  res.json({
+    success: true,
+    moments: store.getState().moments
+  });
+});
+
+router.delete('/admin/moments/:id', requireAdmin, (req, res) => {
+  const { id } = req.params;
+  const deleted = store.deleteMoment(id, req.actor);
+  if (!deleted) {
+    return res.status(404).json({ error: 'Moment not found.' });
+  }
+  res.json({
+    success: true,
+    deletedId: id,
+    moments: store.getState().moments
+  });
+});
+
 export default router;

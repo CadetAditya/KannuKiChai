@@ -1,7 +1,7 @@
 {
   "settings": {
     "shopName": "Kannu ki Chai",
-    "tagline": "Campus Tapri • Kadak Chai & Garma Garam Samosa",
+    "tagline": "Ek कड़क Chai hojaeee",
     "campusLocation": "Behind Ramanujan Hall, Tech Park Gate 2",
     "landmarkWalkTime": "2 min walk from Hostel 3 & Central Library",
     "phone": "+91 98765 43210",
@@ -32,7 +32,7 @@
     "mode": "auto",
     "manualOverrideExpiresAt": null,
     "currentNote": "Fresh adrak & elaichi chai brewing! Samosas fresh out of kadhai 🫖✨",
-    "updatedAt": "2026-11-13T05:29:25.540Z",
+    "updatedAt": "2026-11-13T06:08:20.505Z",
     "updatedBy": "Shopkeeper"
   },
   "auth": {
@@ -169,7 +169,339 @@
       "addedAt": "2026-11-13T05:19:50.791Z"
     }
   ],
+  "moments": [
+    {
+      "id": "moment-1",
+      "title": "Hostel Chai Cheers",
+      "url": "/gallery/chai-cheers.jpg",
+      "author": "Hostel 4 Gang",
+      "time": "Yesterday, 8:15 PM",
+      "status": "approved",
+      "likes": 42,
+      "submittedAt": "2026-11-12T06:06:26.646Z"
+    },
+    {
+      "id": "moment-2",
+      "title": "Winter Kulhad Warmth",
+      "url": "/gallery/kulhad-winter.jpg",
+      "author": "Sneha & Priya",
+      "time": "Yesterday, 6:30 PM",
+      "status": "approved",
+      "likes": 38,
+      "submittedAt": "2026-11-12T04:06:26.646Z"
+    },
+    {
+      "id": "moment-3",
+      "title": "Ek Chai Wali Dosti",
+      "url": "/gallery/ek-chai-dosti.jpg",
+      "author": "Mechanical Dept Regulars",
+      "time": "Yesterday, 5:45 PM",
+      "status": "approved",
+      "likes": 56,
+      "submittedAt": "2026-11-12T03:06:26.646Z"
+    },
+    {
+      "id": "moment-4",
+      "title": "Smiley Tapri Cups",
+      "url": "/gallery/cute-cups.jpg",
+      "author": "Library Study Group",
+      "time": "Yesterday, 4:20 PM",
+      "status": "approved",
+      "likes": 29,
+      "submittedAt": "2026-11-12T02:06:26.646Z"
+    },
+    {
+      "id": "moment-5",
+      "title": "Evening Hostel Circle",
+      "url": "/gallery/hostel-circle.jpg",
+      "author": "Hostel 2 & 3 Friends",
+      "time": "Yesterday, 9:00 PM",
+      "status": "approved",
+      "likes": 67,
+      "submittedAt": "2026-11-12T07:06:26.646Z"
+    }
+  ],
   "logs": [
+    {
+      "id": "log-1794550100507-0ywnx",
+      "timestamp": "2026-11-13T06:08:20.507Z",
+      "actor": "Shopkeeper",
+      "action": "MENU_STOCK",
+      "details": "Garma Garam Samosa (2 pcs) marked as IN STOCK"
+    },
+    {
+      "id": "log-1794550100505-gosil",
+      "timestamp": "2026-11-13T06:08:20.505Z",
+      "actor": "Shopkeeper",
+      "action": "STATUS_UPDATE",
+      "details": "Status updated by Shopkeeper. Mode: auto | Note: \"Fresh adrak & elaichi chai brewing! Samosas fresh out of kadhai 🫖✨\""
+    },
+    {
+      "id": "log-1794550100503-yo4nc",
+      "timestamp": "2026-11-13T06:08:20.503Z",
+      "actor": "Super Admin",
+      "action": "MOMENT_DELETE",
+      "details": "Deleted moment: \"3 AM Exam Chai with Hostel 4 Gang\""
+    },
+    {
+      "id": "log-1794550100497-ig7qc",
+      "timestamp": "2026-11-13T06:08:20.497Z",
+      "actor": "Super Admin",
+      "action": "MOMENT_APPROVE",
+      "details": "Approved student moment: \"3 AM Exam Chai with Hostel 4 Gang\" by Arjun & Rohan"
+    },
+    {
+      "id": "log-1794550100494-uck4u",
+      "timestamp": "2026-11-13T06:08:20.494Z",
+      "actor": "Student",
+      "action": "MOMENT_SUBMIT",
+      "details": "New photo submitted by \"Arjun & Rohan\": \"3 AM Exam Chai with Hostel 4 Gang\" (Pending Approval)"
+    },
+    {
+      "id": "log-1794550100489-pbiv3",
+      "timestamp": "2026-11-13T06:08:20.490Z",
+      "actor": "Super Admin",
+      "action": "GALLERY_REMOVE",
+      "details": "Removed photo: \"New Campus Sunset Chai\" from background rotation"
+    },
+    {
+      "id": "log-1794550100487-nfshd",
+      "timestamp": "2026-11-13T06:08:20.487Z",
+      "actor": "Super Admin",
+      "action": "GALLERY_TOGGLE",
+      "details": "New Campus Sunset Chai rotation visibility set to INACTIVE"
+    },
+    {
+      "id": "log-1794550100484-kk6yb",
+      "timestamp": "2026-11-13T06:08:20.484Z",
+      "actor": "Super Admin",
+      "action": "GALLERY_ADD",
+      "details": "Added photo: \"New Campus Sunset Chai\" to background rotation"
+    },
+    {
+      "id": "log-1794550100467-iqkio",
+      "timestamp": "2026-11-13T06:08:20.467Z",
+      "actor": "Super Admin",
+      "action": "SECURITY_UPDATE",
+      "details": "Access credentials or operator permissions updated."
+    },
+    {
+      "id": "log-1794550100461-60gd2",
+      "timestamp": "2026-11-13T06:08:20.461Z",
+      "actor": "Super Admin",
+      "action": "SECURITY_UPDATE",
+      "details": "Access credentials or operator permissions updated."
+    },
+    {
+      "id": "log-1794550100458-ke4hx",
+      "timestamp": "2026-11-13T06:08:20.458Z",
+      "actor": "Super Admin",
+      "action": "MENU_UPDATE",
+      "details": "Menu inventory and pricing structure updated."
+    },
+    {
+      "id": "log-1794550100455-vb7z1",
+      "timestamp": "2026-11-13T06:08:20.455Z",
+      "actor": "Super Admin",
+      "action": "MENU_UPDATE",
+      "details": "Menu inventory and pricing structure updated."
+    },
+    {
+      "id": "log-1794550100451-gik6p",
+      "timestamp": "2026-11-13T06:08:20.451Z",
+      "actor": "Super Admin",
+      "action": "MENU_UPDATE",
+      "details": "Menu inventory and pricing structure updated."
+    },
+    {
+      "id": "log-1794550100447-3gzhs",
+      "timestamp": "2026-11-13T06:08:20.447Z",
+      "actor": "Super Admin",
+      "action": "SETTINGS_UPDATE",
+      "details": "Store settings and shift timings updated."
+    },
+    {
+      "id": "log-1794550100441-g5335",
+      "timestamp": "2026-11-13T06:08:20.441Z",
+      "actor": "Shopkeeper",
+      "action": "MENU_STOCK",
+      "details": "Garma Garam Samosa (2 pcs) marked as SOLD OUT"
+    },
+    {
+      "id": "log-1794550100329-38jzv",
+      "timestamp": "2026-11-13T06:08:20.329Z",
+      "actor": "Shopkeeper",
+      "action": "STATUS_UPDATE",
+      "details": "Status updated by Shopkeeper. Mode: manual_open | Note: \"Fresh Adrak & Cardamom Chai ready! ☕🔥\""
+    },
+    {
+      "id": "log-1794550100303-py94s",
+      "timestamp": "2026-11-13T06:08:20.303Z",
+      "actor": "Test Setup",
+      "action": "STATUS_UPDATE",
+      "details": "Status updated by Test Setup. Mode: auto"
+    },
+    {
+      "id": "log-1794550100301-u3us9",
+      "timestamp": "2026-11-13T06:08:20.301Z",
+      "actor": "Super Admin",
+      "action": "SETTINGS_UPDATE",
+      "details": "Store settings and shift timings updated."
+    },
+    {
+      "id": "log-1794549986917-2vdvr",
+      "timestamp": "2026-11-13T06:06:26.917Z",
+      "actor": "Shopkeeper",
+      "action": "MENU_STOCK",
+      "details": "Garma Garam Samosa (2 pcs) marked as IN STOCK"
+    },
+    {
+      "id": "log-1794549986915-x1r5e",
+      "timestamp": "2026-11-13T06:06:26.915Z",
+      "actor": "Shopkeeper",
+      "action": "STATUS_UPDATE",
+      "details": "Status updated by Shopkeeper. Mode: auto | Note: \"Fresh adrak & elaichi chai brewing! Samosas fresh out of kadhai 🫖✨\""
+    },
+    {
+      "id": "log-1794549986912-qjygv",
+      "timestamp": "2026-11-13T06:06:26.912Z",
+      "actor": "Super Admin",
+      "action": "MOMENT_DELETE",
+      "details": "Deleted moment: \"3 AM Exam Chai with Hostel 4 Gang\""
+    },
+    {
+      "id": "log-1794549986906-uoc8h",
+      "timestamp": "2026-11-13T06:06:26.906Z",
+      "actor": "Super Admin",
+      "action": "MOMENT_APPROVE",
+      "details": "Approved student moment: \"3 AM Exam Chai with Hostel 4 Gang\" by Arjun & Rohan"
+    },
+    {
+      "id": "log-1794549986903-xuag8",
+      "timestamp": "2026-11-13T06:06:26.903Z",
+      "actor": "Student",
+      "action": "MOMENT_SUBMIT",
+      "details": "New photo submitted by \"Arjun & Rohan\": \"3 AM Exam Chai with Hostel 4 Gang\" (Pending Approval)"
+    },
+    {
+      "id": "log-1794549986898-kcad2",
+      "timestamp": "2026-11-13T06:06:26.898Z",
+      "actor": "Super Admin",
+      "action": "GALLERY_REMOVE",
+      "details": "Removed photo: \"New Campus Sunset Chai\" from background rotation"
+    },
+    {
+      "id": "log-1794549986895-gxdvp",
+      "timestamp": "2026-11-13T06:06:26.895Z",
+      "actor": "Super Admin",
+      "action": "GALLERY_TOGGLE",
+      "details": "New Campus Sunset Chai rotation visibility set to INACTIVE"
+    },
+    {
+      "id": "log-1794549986892-jdrvb",
+      "timestamp": "2026-11-13T06:06:26.892Z",
+      "actor": "Super Admin",
+      "action": "GALLERY_ADD",
+      "details": "Added photo: \"New Campus Sunset Chai\" to background rotation"
+    },
+    {
+      "id": "log-1794549986875-4g93p",
+      "timestamp": "2026-11-13T06:06:26.875Z",
+      "actor": "Super Admin",
+      "action": "SECURITY_UPDATE",
+      "details": "Access credentials or operator permissions updated."
+    },
+    {
+      "id": "log-1794549986870-sa20j",
+      "timestamp": "2026-11-13T06:06:26.870Z",
+      "actor": "Super Admin",
+      "action": "SECURITY_UPDATE",
+      "details": "Access credentials or operator permissions updated."
+    },
+    {
+      "id": "log-1794549986866-kqp10",
+      "timestamp": "2026-11-13T06:06:26.866Z",
+      "actor": "Super Admin",
+      "action": "MENU_UPDATE",
+      "details": "Menu inventory and pricing structure updated."
+    },
+    {
+      "id": "log-1794549986862-c1lwe",
+      "timestamp": "2026-11-13T06:06:26.862Z",
+      "actor": "Super Admin",
+      "action": "MENU_UPDATE",
+      "details": "Menu inventory and pricing structure updated."
+    },
+    {
+      "id": "log-1794549986858-01dt7",
+      "timestamp": "2026-11-13T06:06:26.858Z",
+      "actor": "Super Admin",
+      "action": "MENU_UPDATE",
+      "details": "Menu inventory and pricing structure updated."
+    },
+    {
+      "id": "log-1794549986855-oqb57",
+      "timestamp": "2026-11-13T06:06:26.855Z",
+      "actor": "Super Admin",
+      "action": "SETTINGS_UPDATE",
+      "details": "Store settings and shift timings updated."
+    },
+    {
+      "id": "log-1794549986849-9r8jg",
+      "timestamp": "2026-11-13T06:06:26.849Z",
+      "actor": "Shopkeeper",
+      "action": "MENU_STOCK",
+      "details": "Garma Garam Samosa (2 pcs) marked as SOLD OUT"
+    },
+    {
+      "id": "log-1794549986743-w7aut",
+      "timestamp": "2026-11-13T06:06:26.743Z",
+      "actor": "Shopkeeper",
+      "action": "STATUS_UPDATE",
+      "details": "Status updated by Shopkeeper. Mode: manual_open | Note: \"Fresh Adrak & Cardamom Chai ready! ☕🔥\""
+    },
+    {
+      "id": "log-1794549986684-lb5w6",
+      "timestamp": "2026-11-13T06:06:26.684Z",
+      "actor": "Test Setup",
+      "action": "STATUS_UPDATE",
+      "details": "Status updated by Test Setup. Mode: auto"
+    },
+    {
+      "id": "log-1794549355645-byua5",
+      "timestamp": "2026-11-13T05:55:55.645Z",
+      "actor": "Shopkeeper",
+      "action": "STATUS_UPDATE",
+      "details": "Status updated by Shopkeeper. Mode: manual_closed | Note: \"Tapri temporarily closed\""
+    },
+    {
+      "id": "log-1794548728472-s5gu4",
+      "timestamp": "2026-11-13T05:45:28.472Z",
+      "actor": "Shopkeeper",
+      "action": "STATUS_UPDATE",
+      "details": "Status updated by Shopkeeper. Mode: manual_open"
+    },
+    {
+      "id": "log-1794548714635-9h8r8",
+      "timestamp": "2026-11-13T05:45:14.635Z",
+      "actor": "Shopkeeper",
+      "action": "STATUS_UPDATE",
+      "details": "Status updated by Shopkeeper. Mode: auto | Note: \"Fresh adrak chai ready ☕🔥\""
+    },
+    {
+      "id": "log-1794548671590-04lbc",
+      "timestamp": "2026-11-13T05:44:31.590Z",
+      "actor": "Super Admin",
+      "action": "SETTINGS_UPDATE",
+      "details": "Store settings and shift timings updated."
+    },
+    {
+      "id": "log-1794548665538-fj0vz",
+      "timestamp": "2026-11-13T05:44:25.538Z",
+      "actor": "Super Admin",
+      "action": "SETTINGS_UPDATE",
+      "details": "Store settings and shift timings updated."
+    },
     {
       "id": "log-1794548450916-c9tzn",
       "timestamp": "2026-11-13T05:40:50.916Z",

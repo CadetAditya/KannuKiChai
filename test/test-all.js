@@ -48,6 +48,13 @@ async function runEndToEndTests() {
     // TEST 2: Hybrid Auto-Scheduler Shifts
     // ----------------------------------------------------
     console.log('\n--- 2. Shift Timings & Countdown Engine ---');
+    store.updateSettings({
+      shifts: {
+        morning: { start: '07:30', end: '11:30', label: 'Morning Shift' },
+        evening: { start: '15:30', end: '21:30', label: 'Evening Shift' },
+        daysActive: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+      }
+    });
     store.updateStatus({ mode: 'auto', manualOverrideExpiresAt: null }, 'Test Setup');
 
     const morningTest = computeLiveStatus(new Date('2026-11-13T09:00:00'));
@@ -257,6 +264,61 @@ async function runEndToEndTests() {
     });
     console.assert(deletePhotoRes.status === 200, 'Delete photo failed');
     console.log('✅ Admin Gallery Controls: Add, Toggle visibility, and Remove photo verified');
+
+    // ----------------------------------------------------
+    // TEST 9: Community "Yesterday's Moments" & Approval Flow
+    // ----------------------------------------------------
+    console.log('\n--- 9. Yesterday\'s Moments & Admin Approval Workflow ---');
+    const pubMoments = await req('/api/moments');
+    console.assert(pubMoments.status === 200 && Array.isArray(pubMoments.data.moments), 'Moments fetch failed');
+    console.assert(pubMoments.data.moments.length >= 5, 'Initial approved moments missing');
+    console.log(`✅ Public view has ${pubMoments.data.moments.length} approved Yesterday's Moments`);
+
+    // Student submits a moment with a small test base64 image
+    const sampleBase64 = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==';
+    const submitRes = await req('/api/moments/submit', {
+      method: 'POST',
+      body: JSON.stringify({
+        title: '3 AM Exam Chai with Hostel 4 Gang',
+        author: 'Arjun & Rohan',
+        base64: sampleBase64
+      })
+    });
+    console.assert(submitRes.status === 200 && submitRes.data.success === true, 'Student moment submit failed');
+    const newMomentId = submitRes.data.moment.id;
+    console.assert(submitRes.data.moment.status === 'pending', 'Submitted moment should be pending approval');
+    console.log('✅ Student submitted photo moment; status set to PENDING approval');
+
+    // Verify it is NOT visible in public moments before approval
+    const pubAfterSubmit = await req('/api/moments');
+    const foundInPub = pubAfterSubmit.data.moments.some(m => m.id === newMomentId);
+    console.assert(!foundInPub, 'Pending moment should NOT be visible to public yet');
+    console.log('✅ Unapproved photo is safely hidden from students');
+
+    // Admin approves the moment
+    const approveRes = await req(`/api/admin/moments/${newMomentId}/approve`, {
+      method: 'POST',
+      headers: { 'x-admin-pin': '9999' }
+    });
+    console.assert(approveRes.status === 200 && approveRes.data.moment.status === 'approved', 'Admin approve failed');
+    console.log('✅ Super Admin approved student moment');
+
+    // Verify it is now visible in public moments
+    const pubAfterApprove = await req('/api/moments');
+    const foundApproved = pubAfterApprove.data.moments.some(m => m.id === newMomentId);
+    console.assert(foundApproved, 'Approved moment should now be visible on website');
+    console.log('✅ Approved moment is now LIVE on Yesterday\'s Moments!');
+
+    // Like the moment
+    const likeRes = await req(`/api/moments/${newMomentId}/like`, { method: 'POST' });
+    console.assert(likeRes.status === 200 && likeRes.data.likes === 1, 'Like moment failed');
+    console.log('✅ Student ☕ cheer / like recorded');
+
+    // Admin cleans up test moment
+    await req(`/api/admin/moments/${newMomentId}`, {
+      method: 'DELETE',
+      headers: { 'x-admin-pin': '9999' }
+    });
 
     // Reset status back to auto & samosa in-stock
     await req('/api/operator/status', {

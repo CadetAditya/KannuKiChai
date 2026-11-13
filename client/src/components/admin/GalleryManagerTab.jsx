@@ -1,10 +1,10 @@
 import React, { useState, useRef } from 'react';
 import { useRealtime } from '../../context/RealtimeContext';
-import { Upload, Trash2, Check, Plus, Image, Eye, EyeOff, Sparkles, AlertCircle, Link } from 'lucide-react';
+import { Upload, Trash2, Check, Plus, Image, Eye, EyeOff, Sparkles, AlertCircle, Link, CheckCircle, XCircle, Clock, User, Heart } from 'lucide-react';
 import { sound } from '../../utils/sound';
 
 export default function GalleryManagerTab() {
-  const { gallery, authPin, refresh } = useRealtime();
+  const { gallery, moments, authPin, refresh } = useRealtime();
   const [uploading, setUploading] = useState(false);
   const [feedback, setFeedback] = useState('');
   const [photoTitle, setPhotoTitle] = useState('');
@@ -12,11 +12,70 @@ export default function GalleryManagerTab() {
   const [showUrlForm, setShowUrlForm] = useState(false);
   const fileInputRef = useRef(null);
 
+  const pendingMoments = (moments || []).filter(m => m.status === 'pending');
+  const approvedMoments = (moments || []).filter(m => m.status === 'approved');
+
   const showMsg = (msg) => {
     setFeedback(msg);
     setTimeout(() => setFeedback(''), 3500);
   };
 
+  // Moments Approval Handlers
+  const handleApproveMoment = async (id, title) => {
+    sound.playTap();
+    try {
+      const res = await fetch(`/api/admin/moments/${id}/approve`, {
+        method: 'POST',
+        headers: { 'x-admin-pin': authPin }
+      });
+      if (res.ok) {
+        sound.playSuccess();
+        showMsg(`Approved: "${title}" is now LIVE on Yesterday's Moments! ✨`);
+        refresh();
+      }
+    } catch (err) {
+      sound.playWarning();
+      showMsg('Failed to approve moment');
+    }
+  };
+
+  const handleRejectMoment = async (id, title) => {
+    sound.playTap();
+    try {
+      const res = await fetch(`/api/admin/moments/${id}/reject`, {
+        method: 'POST',
+        headers: { 'x-admin-pin': authPin }
+      });
+      if (res.ok) {
+        sound.playSuccess();
+        showMsg(`Rejected moment: "${title}"`);
+        refresh();
+      }
+    } catch (err) {
+      sound.playWarning();
+      showMsg('Failed to reject moment');
+    }
+  };
+
+  const handleDeleteMoment = async (id, title) => {
+    if (!window.confirm(`Delete moment "${title}" from the website?`)) return;
+    sound.playTap();
+    try {
+      const res = await fetch(`/api/admin/moments/${id}`, {
+        method: 'DELETE',
+        headers: { 'x-admin-pin': authPin }
+      });
+      if (res.ok) {
+        sound.playSuccess();
+        showMsg(`Deleted moment "${title}"`);
+        refresh();
+      }
+    } catch (err) {
+      sound.playWarning();
+    }
+  };
+
+  // Background Photos Handlers
   const handleFileUpload = (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -26,9 +85,9 @@ export default function GalleryManagerTab() {
       return showMsg('Please select an image file (JPG, PNG, WebP).');
     }
 
-    if (file.size > 8 * 1024 * 1024) {
+    if (file.size > 10 * 1024 * 1024) {
       sound.playWarning();
-      return showMsg('Image file size must be under 8MB.');
+      return showMsg('Image file size must be under 10MB.');
     }
 
     const reader = new FileReader();
@@ -113,7 +172,7 @@ export default function GalleryManagerTab() {
     }
   };
 
-  const handleDelete = async (id, title) => {
+  const handleDeleteGallery = async (id, title) => {
     if (!window.confirm(`Remove "${title}" from background rotation?`)) return;
     sound.playTap();
 
@@ -158,48 +217,168 @@ export default function GalleryManagerTab() {
   return (
     <div className="space-y-4">
       {feedback && (
-        <div className="p-3 rounded-xl bg-orange-500/20 border border-orange-500/30 text-orange-300 text-xs font-semibold flex items-center justify-between">
+        <div className="p-3 rounded-xl bg-orange-500/20 border border-orange-500/30 text-orange-800 text-xs font-semibold flex items-center justify-between">
           <span>{feedback}</span>
           <Check size={14} />
         </div>
       )}
 
-      {/* Upload Box */}
-      <div className="p-4 rounded-2xl bg-[#170e09] border border-[#2e1d13] space-y-3">
+      {/* 1. STUDENT MOMENTS APPROVAL QUEUE */}
+      <div className="p-4 rounded-2xl bg-white border border-stone-200 space-y-3 shadow-sm">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="p-2 rounded-xl bg-orange-500/15 text-orange-400 border border-orange-500/30">
+            <span className="p-2 rounded-xl bg-amber-100 text-amber-700">
+              <Clock size={16} />
+            </span>
+            <div>
+              <h4 className="text-xs font-bold text-stone-900 uppercase tracking-wider font-heading">
+                Moments Approval Queue
+              </h4>
+              <p className="text-[11px] text-stone-500">
+                Review student photo submissions before they appear live
+              </p>
+            </div>
+          </div>
+
+          <span className={`px-2.5 py-0.5 rounded-full text-xs font-bold ${
+            pendingMoments.length > 0
+              ? 'bg-orange-500 text-white animate-pulse'
+              : 'bg-stone-100 text-stone-600'
+          }`}>
+            {pendingMoments.length} Pending
+          </span>
+        </div>
+
+        {/* Pending list */}
+        {pendingMoments.length > 0 ? (
+          <div className="space-y-2.5 pt-1">
+            {pendingMoments.map(m => (
+              <div
+                key={m.id}
+                className="p-3 rounded-2xl bg-orange-50/60 border border-orange-200/80 flex items-start gap-3"
+              >
+                <div className="w-20 h-20 rounded-xl overflow-hidden bg-stone-200 flex-shrink-0 border border-stone-200">
+                  <img src={m.url} alt={m.title} className="w-full h-full object-cover" />
+                </div>
+
+                <div className="flex-1 min-w-0 space-y-1">
+                  <h5 className="text-xs font-bold text-stone-900 font-heading">
+                    {m.title}
+                  </h5>
+                  <p className="text-[11px] text-stone-600 flex items-center gap-1">
+                    <User size={11} className="text-orange-500" />
+                    <span>Submitted by: <strong>{m.author}</strong></span>
+                  </p>
+                  <span className="inline-block text-[10px] text-stone-400">
+                    {new Date(m.submittedAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                  </span>
+
+                  {/* Action buttons */}
+                  <div className="flex items-center gap-2 pt-1">
+                    <button
+                      onClick={() => handleApproveMoment(m.id, m.title)}
+                      className="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-xs font-bold text-white flex items-center gap-1 shadow-sm"
+                    >
+                      <CheckCircle size={13} /> Approve & Publish
+                    </button>
+                    <button
+                      onClick={() => handleRejectMoment(m.id, m.title)}
+                      className="px-2.5 py-1.5 rounded-xl bg-rose-100 hover:bg-rose-200 text-rose-700 text-xs font-bold flex items-center gap-1"
+                    >
+                      <XCircle size={13} /> Reject
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="py-4 text-center rounded-xl bg-stone-50 text-xs text-stone-500 border border-stone-100">
+            ✅ All student moments reviewed! No submissions waiting.
+          </div>
+        )}
+      </div>
+
+      {/* 2. APPROVED YESTERDAY'S MOMENTS */}
+      <div className="p-4 rounded-2xl bg-white border border-stone-200 space-y-3 shadow-sm">
+        <div className="flex items-center justify-between">
+          <h4 className="text-xs font-bold text-stone-900 uppercase tracking-wider font-heading">
+            Live Yesterday's Moments ({approvedMoments.length})
+          </h4>
+          <span className="text-[11px] text-stone-400">Visible on public screen</span>
+        </div>
+
+        <div className="space-y-2 max-h-56 overflow-y-auto no-scrollbar">
+          {approvedMoments.map(m => (
+            <div
+              key={m.id}
+              className="p-2.5 rounded-xl bg-stone-50 border border-stone-200/80 flex items-center justify-between gap-2.5"
+            >
+              <div className="flex items-center gap-2.5 min-w-0">
+                <img src={m.url} alt={m.title} className="w-12 h-12 rounded-lg object-cover flex-shrink-0" />
+                <div className="min-w-0">
+                  <h5 className="text-xs font-bold text-stone-900 truncate font-heading">
+                    {m.title}
+                  </h5>
+                  <p className="text-[10px] text-stone-500 truncate">
+                    {m.author} • {m.time}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2 flex-shrink-0">
+                <span className="text-xs font-mono font-bold text-orange-600 bg-orange-50 px-2 py-0.5 rounded-md border border-orange-200">
+                  ☕ {m.likes || 0}
+                </span>
+                <button
+                  onClick={() => handleDeleteMoment(m.id, m.title)}
+                  className="p-1.5 rounded-lg bg-rose-50 text-rose-600 hover:bg-rose-100"
+                  title="Delete moment"
+                >
+                  <Trash2 size={13} />
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* 3. UPLOAD BACKGROUND PHOTOS */}
+      <div className="p-4 rounded-2xl bg-white border border-stone-200 space-y-3 shadow-sm">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="p-2 rounded-xl bg-orange-100 text-orange-600 border border-orange-200">
               <Upload size={16} />
             </div>
             <div>
-              <h4 className="text-xs font-bold text-white uppercase tracking-wider font-heading">
-                Upload Background Photos
+              <h4 className="text-xs font-bold text-stone-900 uppercase tracking-wider font-heading">
+                Wallpaper Background Photos
               </h4>
-              <p className="text-[11px] text-[#8a7263]">
-                Photos will smoothly rotate in the background of the app
+              <p className="text-[11px] text-stone-500">
+                Ambient photos rotating in the background
               </p>
             </div>
           </div>
 
           <button
             onClick={() => setShowUrlForm(!showUrlForm)}
-            className="text-[11px] font-semibold text-orange-400 hover:text-orange-300 flex items-center gap-1"
+            className="text-[11px] font-semibold text-orange-600 hover:text-orange-700 flex items-center gap-1"
           >
             <Link size={12} /> {showUrlForm ? 'Upload File' : 'Paste URL'}
           </button>
         </div>
 
-        {/* Optional Title input */}
+        {/* Title input */}
         <div>
-          <label className="block text-[10px] text-[#8a7263] mb-1">
-            Photo Caption / Title (Optional)
+          <label className="block text-[10px] text-stone-500 mb-1">
+            Photo Title (Optional)
           </label>
           <input
             type="text"
             value={photoTitle}
             onChange={(e) => setPhotoTitle(e.target.value)}
-            placeholder="e.g. Hostel 4 Chai Break, Evening Kulhad Rush"
-            className="w-full px-3 py-2 rounded-xl bg-[#110a06] border border-[#2d1b11] text-xs text-white placeholder-[#786153] focus:outline-none focus:border-orange-500"
+            placeholder="e.g. Hostel 4 Chai Break"
+            className="w-full px-3 py-2 rounded-xl bg-stone-50 border border-stone-200 text-xs text-stone-900 placeholder-stone-400 focus:outline-none focus:border-orange-500"
           />
         </div>
 
@@ -210,7 +389,7 @@ export default function GalleryManagerTab() {
               value={imageUrl}
               onChange={(e) => setImageUrl(e.target.value)}
               placeholder="https://example.com/tapri-photo.jpg"
-              className="flex-1 px-3 py-2 rounded-xl bg-[#110a06] border border-[#2d1b11] text-xs text-white placeholder-[#786153]"
+              className="flex-1 px-3 py-2 rounded-xl bg-stone-50 border border-stone-200 text-xs text-stone-900 placeholder-stone-400"
               required
             />
             <button
@@ -229,103 +408,67 @@ export default function GalleryManagerTab() {
               accept="image/*"
               onChange={handleFileUpload}
               className="hidden"
-              id="photo-upload-input"
+              id="bg-photo-upload-input"
             />
             <label
-              htmlFor="photo-upload-input"
-              className="w-full py-6 rounded-2xl border-2 border-dashed border-[#3d2719] hover:border-orange-500/50 bg-[#120a06] flex flex-col items-center justify-center gap-2 cursor-pointer transition-all active:scale-[0.99]"
+              htmlFor="bg-photo-upload-input"
+              className="w-full py-6 rounded-2xl border-2 border-dashed border-stone-300 hover:border-orange-500 bg-stone-50/50 flex flex-col items-center justify-center gap-2 cursor-pointer transition-all active:scale-[0.99]"
             >
-              <div className="p-3 rounded-full bg-orange-500/10 text-orange-400">
-                <Image size={24} />
+              <div className="p-2.5 rounded-full bg-orange-100 text-orange-600">
+                <Image size={22} />
               </div>
               <div className="text-center">
-                <p className="text-xs font-bold text-white">
-                  {uploading ? 'Uploading Photo...' : 'Click to Select or Take Photo'}
+                <p className="text-xs font-bold text-stone-800">
+                  {uploading ? 'Uploading Photo...' : 'Click to Select or Snap Photo'}
                 </p>
-                <p className="text-[10px] text-[#8a7263] mt-0.5">
-                  JPG, PNG, or WebP up to 8MB
+                <p className="text-[10px] text-stone-400 mt-0.5">
+                  JPG, PNG, or WebP up to 10MB
                 </p>
               </div>
             </label>
           </div>
         )}
-      </div>
 
-      {/* Gallery List */}
-      <div className="space-y-2">
-        <div className="flex items-center justify-between px-1">
-          <h4 className="text-xs font-bold text-white uppercase tracking-wider font-heading">
-            Active Photos in Rotation ({gallery?.length || 0})
-          </h4>
-          <span className="text-[11px] text-[#8a7263]">
-            {gallery?.filter(p => p.active !== false).length || 0} active
-          </span>
-        </div>
-
-        <div className="grid grid-cols-1 xs:grid-cols-2 gap-2.5">
+        {/* Background List */}
+        <div className="grid grid-cols-2 gap-2 pt-2">
           {gallery?.map((photo, idx) => (
             <div
               key={photo.id || idx}
-              className="relative overflow-hidden rounded-2xl bg-[#150f0b] border border-[#2d1c12] group shadow-md"
+              className="relative overflow-hidden rounded-xl bg-stone-100 border border-stone-200 group h-24"
             >
-              {/* Photo Thumbnail */}
-              <div className="relative h-32 w-full bg-[#0a0705] overflow-hidden">
-                <img
-                  src={photo.url}
-                  alt={photo.title}
-                  className={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 ${
-                    photo.active === false ? 'opacity-40 grayscale' : 'opacity-90'
-                  }`}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
+              <img
+                src={photo.url}
+                alt={photo.title}
+                className={`w-full h-full object-cover ${photo.active === false ? 'opacity-40 grayscale' : 'opacity-90'}`}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent pointer-events-none" />
 
-                {/* Status badge */}
-                <div className="absolute top-2 left-2">
-                  <span className={`text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider ${
-                    photo.active !== false
-                      ? 'bg-emerald-500/80 text-white shadow-sm'
-                      : 'bg-zinc-700/80 text-zinc-300'
-                  }`}>
-                    {photo.active !== false ? 'In Rotation' : 'Disabled'}
-                  </span>
-                </div>
+              <div className="absolute top-1.5 right-1.5 flex items-center gap-1">
+                <button
+                  onClick={() => handleToggleActive(photo)}
+                  className="p-1 rounded bg-black/60 text-white"
+                  title="Toggle rotation"
+                >
+                  {photo.active !== false ? <Eye size={11} className="text-emerald-400" /> : <EyeOff size={11} className="text-zinc-400" />}
+                </button>
+                <button
+                  onClick={() => handleDeleteGallery(photo.id, photo.title)}
+                  className="p-1 rounded bg-rose-600 text-white"
+                  title="Delete"
+                >
+                  <Trash2 size={11} />
+                </button>
+              </div>
 
-                {/* Actions overlay */}
-                <div className="absolute top-2 right-2 flex items-center gap-1">
-                  <button
-                    onClick={() => handleToggleActive(photo)}
-                    className="p-1.5 rounded-lg bg-black/60 hover:bg-black/80 text-white backdrop-blur-sm"
-                    title={photo.active !== false ? 'Pause from rotation' : 'Include in rotation'}
-                  >
-                    {photo.active !== false ? <Eye size={12} className="text-emerald-400" /> : <EyeOff size={12} className="text-zinc-400" />}
-                  </button>
-                  <button
-                    onClick={() => handleDelete(photo.id, photo.title)}
-                    className="p-1.5 rounded-lg bg-rose-950/70 hover:bg-rose-900 text-rose-300 backdrop-blur-sm"
-                    title="Remove photo"
-                  >
-                    <Trash2 size={12} />
-                  </button>
-                </div>
-
-                {/* Caption on image */}
-                <div className="absolute bottom-2 left-2 right-2">
-                  <p className="text-xs font-bold text-white truncate drop-shadow-md">
-                    {photo.title}
-                  </p>
-                </div>
+              <div className="absolute bottom-1.5 left-2 right-2">
+                <p className="text-[11px] font-bold text-white truncate drop-shadow-sm font-heading">
+                  {photo.title}
+                </p>
               </div>
             </div>
           ))}
-
-          {(!gallery || gallery.length === 0) && (
-            <div className="col-span-2 text-center py-8 text-xs text-[#8a7263]">
-              No photos currently added to rotation.
-            </div>
-          )}
         </div>
       </div>
     </div>
   );
 }
-
