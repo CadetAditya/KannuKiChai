@@ -29,10 +29,10 @@
     }
   },
   "status": {
-    "mode": "auto",
+    "mode": "manual_open",
     "manualOverrideExpiresAt": null,
-    "currentNote": "Fresh adrak & elaichi chai brewing! Samosas fresh out of kadhai 🫖✨",
-    "updatedAt": "2026-11-13T06:08:20.505Z",
+    "currentNote": "Fresh adrak chai ready ☕🔥",
+    "updatedAt": "2026-11-13T11:48:34.742Z",
     "updatedBy": "Shopkeeper"
   },
   "auth": {
@@ -134,6 +134,13 @@
   ],
   "gallery": [
     {
+      "id": "g-1794570408053-as5o",
+      "title": "1c117a63bbc406b6c08c9e666cc58b46",
+      "url": "/uploads/photo-1794570408050-ixsh.jpg",
+      "active": true,
+      "addedAt": "2026-11-13T11:46:48.053Z"
+    },
+    {
       "id": "g-1",
       "title": "Hostel Chai Cheers",
       "url": "/gallery/chai-cheers.jpg",
@@ -191,16 +198,6 @@
       "submittedAt": "2026-11-12T04:06:26.646Z"
     },
     {
-      "id": "moment-3",
-      "title": "Ek Chai Wali Dosti",
-      "url": "/gallery/ek-chai-dosti.jpg",
-      "author": "Mechanical Dept Regulars",
-      "time": "Yesterday, 5:45 PM",
-      "status": "approved",
-      "likes": 56,
-      "submittedAt": "2026-11-12T03:06:26.646Z"
-    },
-    {
       "id": "moment-4",
       "title": "Smiley Tapri Cups",
       "url": "/gallery/cute-cups.jpg",
@@ -222,6 +219,76 @@
     }
   ],
   "logs": [
+    {
+      "id": "log-1794570514742-2keu1",
+      "timestamp": "2026-11-13T11:48:34.742Z",
+      "actor": "Shopkeeper",
+      "action": "STATUS_UPDATE",
+      "details": "Status updated by Shopkeeper. Mode: manual_open | Note: \"Fresh adrak chai ready ☕🔥\""
+    },
+    {
+      "id": "log-1794570498868-ritac",
+      "timestamp": "2026-11-13T11:48:18.868Z",
+      "actor": "Shopkeeper",
+      "action": "STATUS_UPDATE",
+      "details": "Status updated by Shopkeeper. Mode: manual_closed | Note: \"Tapri temporarily closed\""
+    },
+    {
+      "id": "log-1794570415022-fhka5",
+      "timestamp": "2026-11-13T11:46:55.022Z",
+      "actor": "Super Admin",
+      "action": "MOMENT_DELETE",
+      "details": "Deleted moment: \"Ek Chai Wali Dosti\""
+    },
+    {
+      "id": "log-1794570408053-mds33",
+      "timestamp": "2026-11-13T11:46:48.053Z",
+      "actor": "Super Admin",
+      "action": "GALLERY_ADD",
+      "details": "Added photo: \"1c117a63bbc406b6c08c9e666cc58b46\" to background rotation"
+    },
+    {
+      "id": "log-1794570244867-ac47f",
+      "timestamp": "2026-11-13T11:44:04.867Z",
+      "actor": "Shopkeeper",
+      "action": "STATUS_UPDATE",
+      "details": "Status updated by Shopkeeper. Mode: manual_open | Note: \"Fresh adrak chai ready ☕🔥\""
+    },
+    {
+      "id": "log-1794570242588-qarq9",
+      "timestamp": "2026-11-13T11:44:02.588Z",
+      "actor": "Shopkeeper",
+      "action": "STATUS_UPDATE",
+      "details": "Status updated by Shopkeeper. Mode: manual_closed | Note: \"Tapri temporarily closed\""
+    },
+    {
+      "id": "log-1794556596526-4b6cg",
+      "timestamp": "2026-11-13T07:56:36.526Z",
+      "actor": "Shopkeeper",
+      "action": "STATUS_UPDATE",
+      "details": "Status updated by Shopkeeper. Mode: manual_open | Note: \"Fresh adrak chai ready ☕🔥\""
+    },
+    {
+      "id": "log-1794556593759-pppdv",
+      "timestamp": "2026-11-13T07:56:33.759Z",
+      "actor": "Shopkeeper",
+      "action": "STATUS_UPDATE",
+      "details": "Status updated by Shopkeeper. Mode: manual_closed | Note: \"Tapri temporarily closed\""
+    },
+    {
+      "id": "log-1794554124244-xomik",
+      "timestamp": "2026-11-13T07:15:24.244Z",
+      "actor": "Shopkeeper",
+      "action": "STATUS_UPDATE",
+      "details": "Status updated by Shopkeeper. Mode: manual_open | Note: \"Fresh adrak chai ready ☕🔥\""
+    },
+    {
+      "id": "log-1794554122546-w1e9q",
+      "timestamp": "2026-11-13T07:15:22.546Z",
+      "actor": "Shopkeeper",
+      "action": "STATUS_UPDATE",
+      "details": "Status updated by Shopkeeper. Mode: manual_closed | Note: \"Tapri temporarily closed\""
+    },
     {
       "id": "log-1794550100507-0ywnx",
       "timestamp": "2026-11-13T06:08:20.507Z",

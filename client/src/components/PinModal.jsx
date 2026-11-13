@@ -131,8 +131,8 @@ export default function PinModal({ isOpen, onClose }) {
               <span>{error}</span>
             </div>
           ) : (
-            <p className="mt-3 text-[11px] text-stone-500 font-medium">
-              Shopkeeper PIN (1234) • Super Admin PIN (9999)
+            <p className="mt-3 text-[11px] text-stone-400 font-medium">
+              Authorized personnel only
             </p>
           )}
         </div>
