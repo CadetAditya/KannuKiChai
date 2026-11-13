@@ -42,24 +42,6 @@
   },
   "menu": [
     {
-      "id": "m1",
-      "name": "Kadak Adrak Chai",
-      "category": "Special Chai",
-      "price": 15,
-      "inStock": true,
-      "badge": "Bestseller",
-      "description": "Slow simmered with freshly crushed winter ginger & organic tea leaves"
-    },
-    {
-      "id": "m2",
-      "name": "Masala Kulhad Chai",
-      "category": "Special Chai",
-      "price": 20,
-      "inStock": true,
-      "badge": "Must Try",
-      "description": "Served in authentic clay kulhad with Kannu special roasted 7-spice blend"
-    },
-    {
       "id": "m3",
       "name": "Special Elaichi Chai",
       "category": "Special Chai",
@@ -188,6 +170,20 @@
     }
   ],
   "logs": [
+    {
+      "id": "log-1794548450916-c9tzn",
+      "timestamp": "2026-11-13T05:40:50.916Z",
+      "actor": "Super Admin",
+      "action": "MENU_UPDATE",
+      "details": "Menu inventory and pricing structure updated."
+    },
+    {
+      "id": "log-1794548447789-4cxmt",
+      "timestamp": "2026-11-13T05:40:47.789Z",
+      "actor": "Super Admin",
+      "action": "MENU_UPDATE",
+      "details": "Menu inventory and pricing structure updated."
+    },
     {
       "id": "log-1794547765543-d7mnl",
       "timestamp": "2026-11-13T05:29:25.543Z",
