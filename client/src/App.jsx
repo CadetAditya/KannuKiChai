@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { RealtimeProvider, useRealtime } from './context/RealtimeContext';
 import { Lock, Volume2, VolumeX, Radio, Sparkles } from 'lucide-react';
 import { sound } from './utils/sound';
+import StatusCard from './components/StatusCard';
 
 function Header() {
   const { settings, activeViewers, connected } = useRealtime();
@@ -61,15 +62,14 @@ function Header() {
 
 function MainContent() {
   const { authRole } = useRealtime();
+  const [showSchedule, setShowSchedule] = useState(false);
 
   return (
     <div className="min-h-screen flex flex-col bg-[#0b0704] text-[#f7eee4]">
       <Header />
       <main className="flex-1 max-w-md w-full mx-auto px-4 py-4 pb-24 space-y-4">
-        {/* Placeholder for View switching - next commits will expand these */}
-        <div className="text-center py-6 text-sm text-[#9a8274]">
-          Live View Loading...
-        </div>
+        {/* Large High-Contrast Status Card */}
+        <StatusCard onOpenSchedule={() => setShowSchedule(true)} />
       </main>
     </div>
   );
