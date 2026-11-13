@@ -1,0 +1,162 @@
+{
+  "settings": {
+    "shopName": "Kannu ki Chai",
+    "tagline": "Campus Tapri • Kadak Chai & Garma Garam Samosa",
+    "campusLocation": "Behind Ramanujan Hall, near Tech Park Nescafe Corner",
+    "landmarkWalkTime": "3-5 min walk from Hostels 1-5 & Central Library",
+    "phone": "+91 98765 43210",
+    "upiId": "kannukichai@okhdfcbank",
+    "shifts": {
+      "morning": {
+        "start": "07:30",
+        "end": "11:30",
+        "label": "Morning Shift"
+      },
+      "evening": {
+        "start": "15:30",
+        "end": "21:30",
+        "label": "Evening Shift"
+      },
+      "daysActive": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu",
+        "Fri",
+        "Sat",
+        "Sun"
+      ]
+    }
+  },
+  "status": {
+    "mode": "auto",
+    "manualOverrideExpiresAt": null,
+    "currentNote": "Fresh adrak & elaichi chai brewing! Samosas fresh out of kadhai 🫖✨",
+    "updatedAt": "2026-11-13T04:55:25.845Z",
+    "updatedBy": "System Default"
+  },
+  "auth": {
+    "operatorPin": "1234",
+    "adminPin": "9999",
+    "operatorEnabled": true
+  },
+  "menu": [
+    {
+      "id": "m1",
+      "name": "Kadak Adrak Chai",
+      "category": "Special Chai",
+      "price": 15,
+      "inStock": true,
+      "badge": "Bestseller",
+      "description": "Slow simmered with freshly crushed winter ginger & organic tea leaves"
+    },
+    {
+      "id": "m2",
+      "name": "Masala Kulhad Chai",
+      "category": "Special Chai",
+      "price": 20,
+      "inStock": true,
+      "badge": "Must Try",
+      "description": "Served in authentic clay kulhad with Kannu special roasted 7-spice blend"
+    },
+    {
+      "id": "m3",
+      "name": "Special Elaichi Chai",
+      "category": "Special Chai",
+      "price": 15,
+      "inStock": true,
+      "badge": null,
+      "description": "Green cardamom pods steeped in rich creamy buffalo milk"
+    },
+    {
+      "id": "m4",
+      "name": "Sulaimani Lemon Chai",
+      "category": "Special Chai",
+      "price": 15,
+      "inStock": true,
+      "badge": null,
+      "description": "Soothing spiced black tea with fresh mint sprigs and citrus squeeze"
+    },
+    {
+      "id": "m5",
+      "name": "Cutting Chai",
+      "category": "Special Chai",
+      "price": 10,
+      "inStock": true,
+      "badge": "Campus Fav",
+      "description": "Quick student dose: half cup strong, sweet, and piping hot"
+    },
+    {
+      "id": "m6",
+      "name": "Garma Garam Samosa (2 pcs)",
+      "category": "Snacks & Bites",
+      "price": 25,
+      "inStock": true,
+      "badge": "Hot Seller",
+      "description": "Crispy flaky crust stuffed with spiced potato & peas, served with mint chutney"
+    },
+    {
+      "id": "m7",
+      "name": "Bun Maska",
+      "category": "Snacks & Bites",
+      "price": 30,
+      "inStock": true,
+      "badge": "Classic",
+      "description": "Soft bakery bun sliced and slathered generously with fresh Amul butter"
+    },
+    {
+      "id": "m8",
+      "name": "Cheese Bun Maska",
+      "category": "Snacks & Bites",
+      "price": 45,
+      "inStock": true,
+      "badge": null,
+      "description": "Toasted bun loaded with creamy butter and grated melting cheddar"
+    },
+    {
+      "id": "m9",
+      "name": "Aloo Patties",
+      "category": "Snacks & Bites",
+      "price": 20,
+      "inStock": true,
+      "badge": null,
+      "description": "Multi-layered crispy puff pastry stuffed with savory mashed potatoes"
+    },
+    {
+      "id": "m10",
+      "name": "Osmania Biscuits (3 pcs)",
+      "category": "Snacks & Bites",
+      "price": 15,
+      "inStock": true,
+      "badge": null,
+      "description": "Crisp melt-in-the-mouth buttery biscuits, perfect for chai dunking"
+    },
+    {
+      "id": "m11",
+      "name": "Cold Coffee with Cream",
+      "category": "Cold Beverages",
+      "price": 40,
+      "inStock": true,
+      "badge": "Popular",
+      "description": "Thick blended iced coffee topped with chocolate syrup drizzle"
+    },
+    {
+      "id": "m12",
+      "name": "Shikanji / Nimbu Paani",
+      "category": "Cold Beverages",
+      "price": 20,
+      "inStock": true,
+      "badge": null,
+      "description": "Chilled freshly squeezed lemonade with black salt and roasted cumin"
+    }
+  ],
+  "logs": [
+    {
+      "id": "log-1",
+      "timestamp": "2026-11-13T04:55:25.846Z",
+      "actor": "System",
+      "action": "INIT",
+      "details": "Kannu ki Chai live system initialized with default shift schedule."
+    }
+  ]
+}
