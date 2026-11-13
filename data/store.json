@@ -2,8 +2,8 @@
   "settings": {
     "shopName": "Kannu ki Chai",
     "tagline": "Campus Tapri • Kadak Chai & Garma Garam Samosa",
-    "campusLocation": "Behind Ramanujan Hall, near Tech Park Nescafe Corner",
-    "landmarkWalkTime": "3-5 min walk from Hostels 1-5 & Central Library",
+    "campusLocation": "Behind Ramanujan Hall, Tech Park Gate 2",
+    "landmarkWalkTime": "2 min walk from Hostel 3 & Central Library",
     "phone": "+91 98765 43210",
     "upiId": "kannukichai@okhdfcbank",
     "shifts": {
@@ -32,8 +32,8 @@
     "mode": "auto",
     "manualOverrideExpiresAt": null,
     "currentNote": "Fresh adrak & elaichi chai brewing! Samosas fresh out of kadhai 🫖✨",
-    "updatedAt": "2026-11-13T04:55:25.845Z",
-    "updatedBy": "System Default"
+    "updatedAt": "2026-11-13T05:12:42.139Z",
+    "updatedBy": "Shopkeeper"
   },
   "auth": {
     "operatorPin": "1234",
@@ -100,7 +100,7 @@
       "name": "Bun Maska",
       "category": "Snacks & Bites",
       "price": 30,
-      "inStock": true,
+      "inStock": false,
       "badge": "Classic",
       "description": "Soft bakery bun sliced and slathered generously with fresh Amul butter"
     },
@@ -151,6 +151,167 @@
     }
   ],
   "logs": [
+    {
+      "id": "log-1794546762141-r0771",
+      "timestamp": "2026-11-13T05:12:42.141Z",
+      "actor": "Shopkeeper",
+      "action": "MENU_STOCK",
+      "details": "Garma Garam Samosa (2 pcs) marked as IN STOCK"
+    },
+    {
+      "id": "log-1794546762139-yoj1w",
+      "timestamp": "2026-11-13T05:12:42.139Z",
+      "actor": "Shopkeeper",
+      "action": "STATUS_UPDATE",
+      "details": "Status updated by Shopkeeper. Mode: auto | Note: \"Fresh adrak & elaichi chai brewing! Samosas fresh out of kadhai 🫖✨\""
+    },
+    {
+      "id": "log-1794546762125-z58af",
+      "timestamp": "2026-11-13T05:12:42.125Z",
+      "actor": "Super Admin",
+      "action": "SECURITY_UPDATE",
+      "details": "Access credentials or operator permissions updated."
+    },
+    {
+      "id": "log-1794546762120-gdcd1",
+      "timestamp": "2026-11-13T05:12:42.120Z",
+      "actor": "Super Admin",
+      "action": "SECURITY_UPDATE",
+      "details": "Access credentials or operator permissions updated."
+    },
+    {
+      "id": "log-1794546762118-gn891",
+      "timestamp": "2026-11-13T05:12:42.118Z",
+      "actor": "Super Admin",
+      "action": "MENU_UPDATE",
+      "details": "Menu inventory and pricing structure updated."
+    },
+    {
+      "id": "log-1794546762115-wpzks",
+      "timestamp": "2026-11-13T05:12:42.115Z",
+      "actor": "Super Admin",
+      "action": "MENU_UPDATE",
+      "details": "Menu inventory and pricing structure updated."
+    },
+    {
+      "id": "log-1794546762111-5e5j0",
+      "timestamp": "2026-11-13T05:12:42.111Z",
+      "actor": "Super Admin",
+      "action": "MENU_UPDATE",
+      "details": "Menu inventory and pricing structure updated."
+    },
+    {
+      "id": "log-1794546762108-ab22t",
+      "timestamp": "2026-11-13T05:12:42.108Z",
+      "actor": "Super Admin",
+      "action": "SETTINGS_UPDATE",
+      "details": "Store settings and shift timings updated."
+    },
+    {
+      "id": "log-1794546762102-fk96k",
+      "timestamp": "2026-11-13T05:12:42.102Z",
+      "actor": "Shopkeeper",
+      "action": "MENU_STOCK",
+      "details": "Garma Garam Samosa (2 pcs) marked as SOLD OUT"
+    },
+    {
+      "id": "log-1794546761994-0xrvp",
+      "timestamp": "2026-11-13T05:12:41.994Z",
+      "actor": "Shopkeeper",
+      "action": "STATUS_UPDATE",
+      "details": "Status updated by Shopkeeper. Mode: manual_open | Note: \"Fresh Adrak & Cardamom Chai ready! ☕🔥\""
+    },
+    {
+      "id": "log-1794546716251-h3nb8",
+      "timestamp": "2026-11-13T05:11:56.251Z",
+      "actor": "Shopkeeper",
+      "action": "MENU_STOCK",
+      "details": "Garma Garam Samosa (2 pcs) marked as IN STOCK"
+    },
+    {
+      "id": "log-1794546716248-935m6",
+      "timestamp": "2026-11-13T05:11:56.248Z",
+      "actor": "Shopkeeper",
+      "action": "STATUS_UPDATE",
+      "details": "Status updated by Shopkeeper. Mode: auto | Note: \"Fresh adrak & elaichi chai brewing! Samosas fresh out of kadhai 🫖✨\""
+    },
+    {
+      "id": "log-1794546716237-napta",
+      "timestamp": "2026-11-13T05:11:56.237Z",
+      "actor": "Super Admin",
+      "action": "SECURITY_UPDATE",
+      "details": "Access credentials or operator permissions updated."
+    },
+    {
+      "id": "log-1794546716230-06n94",
+      "timestamp": "2026-11-13T05:11:56.230Z",
+      "actor": "Super Admin",
+      "action": "SECURITY_UPDATE",
+      "details": "Access credentials or operator permissions updated."
+    },
+    {
+      "id": "log-1794546716226-6a6hv",
+      "timestamp": "2026-11-13T05:11:56.226Z",
+      "actor": "Super Admin",
+      "action": "MENU_UPDATE",
+      "details": "Menu inventory and pricing structure updated."
+    },
+    {
+      "id": "log-1794546716223-77yvp",
+      "timestamp": "2026-11-13T05:11:56.223Z",
+      "actor": "Super Admin",
+      "action": "MENU_UPDATE",
+      "details": "Menu inventory and pricing structure updated."
+    },
+    {
+      "id": "log-1794546716219-bp2qc",
+      "timestamp": "2026-11-13T05:11:56.219Z",
+      "actor": "Super Admin",
+      "action": "MENU_UPDATE",
+      "details": "Menu inventory and pricing structure updated."
+    },
+    {
+      "id": "log-1794546716216-xxnfq",
+      "timestamp": "2026-11-13T05:11:56.216Z",
+      "actor": "Super Admin",
+      "action": "SETTINGS_UPDATE",
+      "details": "Store settings and shift timings updated."
+    },
+    {
+      "id": "log-1794546716211-lwaxf",
+      "timestamp": "2026-11-13T05:11:56.211Z",
+      "actor": "Shopkeeper",
+      "action": "MENU_STOCK",
+      "details": "Garma Garam Samosa (2 pcs) marked as SOLD OUT"
+    },
+    {
+      "id": "log-1794546716100-gm8ph",
+      "timestamp": "2026-11-13T05:11:56.101Z",
+      "actor": "Shopkeeper",
+      "action": "STATUS_UPDATE",
+      "details": "Status updated by Shopkeeper. Mode: manual_open | Note: \"Fresh Adrak & Cardamom Chai ready! ☕🔥\""
+    },
+    {
+      "id": "log-1794545896682-yzoj0",
+      "timestamp": "2026-11-13T04:58:16.682Z",
+      "actor": "Shopkeeper",
+      "action": "STATUS_UPDATE",
+      "details": "Status updated by Shopkeeper. Mode: auto | Note: \"Fresh adrak chai ready ☕🔥\""
+    },
+    {
+      "id": "log-1794545896676-x956b",
+      "timestamp": "2026-11-13T04:58:16.676Z",
+      "actor": "Shopkeeper",
+      "action": "MENU_STOCK",
+      "details": "Bun Maska marked as SOLD OUT"
+    },
+    {
+      "id": "log-1794545896673-kct0c",
+      "timestamp": "2026-11-13T04:58:16.673Z",
+      "actor": "Shopkeeper",
+      "action": "STATUS_UPDATE",
+      "details": "Status updated by Shopkeeper. Mode: manual_closed | Note: \"Chai break - back in 15 mins! ⏳\""
+    },
     {
       "id": "log-1",
       "timestamp": "2026-11-13T04:55:25.846Z",
