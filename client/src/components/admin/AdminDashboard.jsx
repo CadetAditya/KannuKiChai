@@ -3,8 +3,10 @@ import { useRealtime } from '../../context/RealtimeContext';
 import { Store, Coffee, Shield, History, LogOut, Sparkles, Check } from 'lucide-react';
 import { sound } from '../../utils/sound';
 import StoreSettingsTab from './StoreSettingsTab';
+import MenuManagerTab from './MenuManagerTab';
+import SecurityTab from './SecurityTab';
 
-export default function AdminDashboard({ childrenMenu, childrenSecurity, childrenLogs }) {
+export default function AdminDashboard({ childrenLogs }) {
   const { logout, settings } = useRealtime();
   const [activeTab, setActiveTab] = useState('settings'); // 'settings' | 'menu' | 'security' | 'logs'
 
@@ -64,8 +66,8 @@ export default function AdminDashboard({ childrenMenu, childrenSecurity, childre
       {/* Tab Panels */}
       <div>
         {activeTab === 'settings' && <StoreSettingsTab />}
-        {activeTab === 'menu' && (childrenMenu || <div className="text-center py-8 text-xs text-[#8a7263]">Menu manager tab loading...</div>)}
-        {activeTab === 'security' && (childrenSecurity || <div className="text-center py-8 text-xs text-[#8a7263]">Security tab loading...</div>)}
+        {activeTab === 'menu' && <MenuManagerTab />}
+        {activeTab === 'security' && <SecurityTab />}
         {activeTab === 'logs' && (childrenLogs || <div className="text-center py-8 text-xs text-[#8a7263]">Audit logs loading...</div>)}
       </div>
     </div>
