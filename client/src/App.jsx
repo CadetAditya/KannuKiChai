@@ -9,6 +9,7 @@ import ScheduleModal from './components/ScheduleModal';
 import StudentMenu from './components/StudentMenu';
 import PinModal from './components/PinModal';
 import OperatorView from './components/OperatorView';
+import AdminDashboard from './components/admin/AdminDashboard';
 
 function Header() {
   const { settings, activeViewers, connected } = useRealtime();
@@ -75,7 +76,9 @@ function MainContent() {
     <div className="min-h-screen flex flex-col bg-[#0b0704] text-[#f7eee4]">
       <Header />
       <main className="flex-1 max-w-md w-full mx-auto px-4 py-4 pb-24 space-y-4">
-        {authRole === 'operator' ? (
+        {authRole === 'admin' ? (
+          <AdminDashboard />
+        ) : authRole === 'operator' ? (
           <OperatorView />
         ) : (
           <>
