@@ -4,8 +4,8 @@ export default function ChaiSteamingCup({ isOpen }) {
   if (!isOpen) {
     return (
       <div className="relative w-24 h-24 mx-auto flex items-center justify-center">
-        {/* Subtle closed / resting tapri kettle */}
-        <div className="w-16 h-16 rounded-full bg-rose-950/40 border border-rose-500/20 flex items-center justify-center text-3xl shadow-inner">
+        {/* Subtle closed / resting tapri kettle in light theme */}
+        <div className="w-16 h-16 rounded-full bg-rose-50 border border-rose-200 flex items-center justify-center text-3xl shadow-sm">
           🌙
         </div>
       </div>
@@ -16,13 +16,13 @@ export default function ChaiSteamingCup({ isOpen }) {
     <div className="relative w-28 h-28 mx-auto flex items-center justify-center">
       {/* Three steaming smoke trails */}
       <div className="absolute -top-3 flex justify-center gap-2.5 z-10 pointer-events-none">
-        <div className="w-1 h-5 rounded-full bg-gradient-to-t from-orange-200/80 to-transparent animate-steam-1"></div>
-        <div className="w-1.5 h-6 rounded-full bg-gradient-to-t from-amber-100/90 to-transparent animate-steam-2"></div>
-        <div className="w-1 h-4 rounded-full bg-gradient-to-t from-orange-200/80 to-transparent animate-steam-3"></div>
+        <div className="w-1.5 h-6 rounded-full bg-gradient-to-t from-orange-400/90 to-transparent animate-steam-1"></div>
+        <div className="w-2 h-7 rounded-full bg-gradient-to-t from-amber-500/90 to-transparent animate-steam-2"></div>
+        <div className="w-1.5 h-5 rounded-full bg-gradient-to-t from-orange-400/90 to-transparent animate-steam-3"></div>
       </div>
 
       {/* Outer ambient glow */}
-      <div className="absolute inset-0 bg-emerald-500/15 rounded-full blur-xl pointer-events-none"></div>
+      <div className="absolute inset-0 bg-emerald-500/10 rounded-full blur-xl pointer-events-none"></div>
 
       {/* SVG Clay Kulhad Cup */}
       <svg className="w-20 h-20 relative z-0 drop-shadow-[0_8px_16px_rgba(234,88,12,0.4)]" viewBox="0 0 100 100" fill="none">
@@ -69,3 +69,4 @@ export default function ChaiSteamingCup({ isOpen }) {
     </div>
   );
 }
+

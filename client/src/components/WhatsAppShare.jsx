@@ -17,7 +17,7 @@ export default function WhatsAppShare() {
 
     return (
       `☕ *${settings.shopName}* is ${statusEmoji} *${statusWord}*!${noteText}${countdown}${location}\n\n` +
-      `Check live status & menu before walking over:\n${appUrl}`
+      `Check live status before walking over:\n${appUrl}`
     );
   };
 
@@ -39,19 +39,19 @@ export default function WhatsAppShare() {
   };
 
   return (
-    <div className="rounded-2xl bg-[#140e0a] border border-[#2b1c13] p-3.5 space-y-2.5">
-      <div className="flex items-center justify-between text-xs text-[#b89d8b]">
-        <span className="font-semibold text-white flex items-center gap-1.5 font-heading">
-          <MessageSquare size={14} className="text-emerald-400" /> Share with Hostel Group
+    <div className="rounded-2xl bg-white/90 border border-stone-200/90 shadow-sm p-3.5 space-y-2.5 backdrop-blur-sm">
+      <div className="flex items-center justify-between text-xs text-stone-600">
+        <span className="font-bold text-stone-800 flex items-center gap-1.5 font-heading">
+          <MessageSquare size={14} className="text-emerald-600" /> Share with Hostel Friends
         </span>
-        <span className="text-[11px] text-[#8a7263]">1-Tap Status</span>
+        <span className="text-[11px] text-stone-400">1-Tap Live Status</span>
       </div>
 
       <div className="grid grid-cols-2 gap-2">
         {/* Direct WhatsApp Share button */}
         <button
           onClick={handleWhatsAppClick}
-          className="flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-500 hover:to-green-500 active:scale-95 font-semibold text-xs text-white shadow-md shadow-emerald-950/40 transition-all"
+          className="flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-500 hover:to-green-500 active:scale-95 font-bold text-xs text-white shadow-md shadow-emerald-700/20 transition-all"
         >
           <Share2 size={15} />
           <span>WhatsApp Status</span>
@@ -60,16 +60,16 @@ export default function WhatsAppShare() {
         {/* Copy text button */}
         <button
           onClick={handleCopy}
-          className="flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl bg-[#20150f] hover:bg-[#281b13] active:scale-95 border border-[#3b2518] text-xs font-semibold text-[#e8d5c8] transition-all"
+          className="flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl bg-stone-100 hover:bg-stone-200/90 active:scale-95 border border-stone-200/90 text-xs font-bold text-stone-700 transition-all"
         >
           {copied ? (
             <>
-              <Check size={15} className="text-emerald-400" />
-              <span className="text-emerald-400 font-bold">Copied!</span>
+              <Check size={15} className="text-emerald-600" />
+              <span className="text-emerald-700 font-bold">Copied!</span>
             </>
           ) : (
             <>
-              <Copy size={15} className="text-[#a89080]" />
+              <Copy size={15} className="text-stone-500" />
               <span>Copy Message</span>
             </>
           )}

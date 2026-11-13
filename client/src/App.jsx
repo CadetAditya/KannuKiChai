@@ -23,22 +23,22 @@ function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-30 px-4 py-3 bg-[#0d0906]/90 backdrop-blur-md border-b border-[#2a1a10]">
+    <header className="sticky top-0 z-30 px-4 py-3 bg-[#f7f4ed]/90 backdrop-blur-md border-b border-stone-200/90 shadow-sm">
       <div className="max-w-md mx-auto flex items-center justify-between">
         <div className="flex items-center gap-2.5">
-          <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-amber-600 via-orange-600 to-amber-800 p-0.5 shadow-lg shadow-orange-950/40 flex items-center justify-center">
-            <div className="w-full h-full bg-[#170f0a] rounded-[14px] flex items-center justify-center text-xl">
+          <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-orange-500 to-amber-600 p-0.5 shadow-md shadow-orange-500/20 flex items-center justify-center">
+            <div className="w-full h-full bg-white rounded-[14px] flex items-center justify-center text-xl">
               ☕
             </div>
           </div>
           <div>
-            <h1 className="text-lg font-black tracking-tight text-white flex items-center gap-1.5 font-heading">
+            <h1 className="text-lg font-black tracking-tight text-stone-900 flex items-center gap-1.5 font-heading">
               {settings.shopName}
-              <span className="text-[10px] uppercase font-bold tracking-widest px-1.5 py-0.5 rounded bg-orange-500/20 text-orange-400 border border-orange-500/30">
-                Tapri
+              <span className="text-[10px] uppercase font-bold tracking-widest px-2 py-0.5 rounded-full bg-orange-100 text-orange-700 border border-orange-200">
+                Live
               </span>
             </h1>
-            <p className="text-[11px] text-[#a89080] line-clamp-1">
+            <p className="text-[11px] text-stone-500 line-clamp-1 font-medium">
               {settings.tagline}
             </p>
           </div>
@@ -46,22 +46,22 @@ function Header() {
 
         <div className="flex items-center gap-2">
           {/* Active Viewers Indicator */}
-          <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#1b120c] border border-[#382214] text-[11px] text-[#d4bca9]">
+          <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/90 border border-stone-200/90 text-[11px] text-stone-700 shadow-sm">
             <span className="relative flex h-2 w-2">
               <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${connected ? 'bg-emerald-400' : 'bg-amber-400'}`}></span>
               <span className={`relative inline-flex rounded-full h-2 w-2 ${connected ? 'bg-emerald-500' : 'bg-amber-500'}`}></span>
             </span>
-            <span className="font-semibold text-xs text-white">{activeViewers}</span>
-            <span className="hidden xs:inline text-[10px] text-[#9a8274]">live</span>
+            <span className="font-bold text-xs text-stone-900">{activeViewers}</span>
+            <span className="hidden xs:inline text-[10px] text-stone-400">watching</span>
           </div>
 
           {/* Sound Toggle */}
           <button
             onClick={toggleSound}
             aria-label="Toggle Sound"
-            className="p-2 rounded-xl bg-[#1b120c] border border-[#382214] text-[#d4bca9] hover:text-white active:scale-95 transition-all"
+            className="p-2 rounded-xl bg-white/90 border border-stone-200/90 text-stone-600 hover:text-stone-900 active:scale-95 transition-all shadow-sm"
           >
-            {soundOn ? <Volume2 size={16} /> : <VolumeX size={16} className="text-[#886d5d]" />}
+            {soundOn ? <Volume2 size={16} /> : <VolumeX size={16} className="text-stone-400" />}
           </button>
         </div>
       </div>
@@ -70,39 +70,43 @@ function Header() {
 }
 
 function MainContent() {
-  const { authRole } = useRealtime();
+  const { authRole, settings } = useRealtime();
   const [showSchedule, setShowSchedule] = useState(false);
   const [showPinModal, setShowPinModal] = useState(false);
 
   return (
-    <div className="relative min-h-screen flex flex-col bg-[#0b0704] text-[#f7eee4]">
-      {/* Aesthetic rotating tapri background photos with Ken Burns effect */}
+    <div className="relative min-h-screen flex flex-col bg-[#f7f4ed] text-[#1c150f]">
+      {/* Aesthetic rotating tapri background photos with soft light scrim */}
       <AestheticBackground />
 
       <Header />
-      <main className="relative z-10 flex-1 max-w-md w-full mx-auto px-4 py-4 pb-28 space-y-4">
+      <main className="relative z-10 flex-1 max-w-md w-full mx-auto px-4 py-5 pb-28 space-y-4">
         {authRole === 'admin' ? (
           <AdminDashboard />
         ) : authRole === 'operator' ? (
           <OperatorView />
         ) : (
           <>
-            {/* Large High-Contrast Status Card */}
+            {/* Core Status Screen: OPEN or CLOSED with Countdown & Live Note */}
             <StatusCard onOpenSchedule={() => setShowSchedule(true)} />
 
-            {/* Live Shop Notes Banner */}
-            <LiveNotesBanner />
-
-            {/* 1-Tap WhatsApp Sharing */}
+            {/* 1-Tap WhatsApp Status Sharing */}
             <WhatsAppShare />
 
-            {/* Live Menu & Availability */}
-            <StudentMenu />
+            {/* Campus Landmark Subtext */}
+            <div className="px-4 py-2.5 rounded-2xl bg-white/80 border border-stone-200/80 text-center shadow-sm backdrop-blur-sm">
+              <p className="text-xs font-semibold text-stone-800">
+                📍 {settings.campusLocation}
+              </p>
+              <p className="text-[11px] text-orange-600 font-medium mt-0.5">
+                🚶 {settings.landmarkWalkTime}
+              </p>
+            </div>
 
-            {/* Footer with Subtle Padlock */}
-            <footer className="pt-8 pb-4 text-center space-y-2">
-              <p className="text-[11px] text-[#786153]">
-                Kannu ki Chai • Built for campus life ☕
+            {/* Footer with Subtle Staff Padlock */}
+            <footer className="pt-6 pb-2 text-center space-y-2">
+              <p className="text-[11px] text-stone-400">
+                Kannu ki Chai • Campus Tapri Live Status ☕
               </p>
               <div className="flex items-center justify-center gap-4">
                 <button
@@ -110,10 +114,10 @@ function MainContent() {
                     sound.playTap();
                     setShowPinModal(true);
                   }}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#170e09] hover:bg-[#22150e] border border-[#2e1d13] text-[11px] font-medium text-[#9a8274] hover:text-[#d4bca9] transition-all"
+                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/90 hover:bg-white border border-stone-200 text-[11px] font-semibold text-stone-600 hover:text-stone-900 shadow-sm transition-all active:scale-95"
                 >
-                  <Lock size={12} className="text-orange-400" />
-                  <span>Staff Login</span>
+                  <Lock size={12} className="text-orange-500" />
+                  <span>Staff / Admin Login</span>
                 </button>
               </div>
             </footer>

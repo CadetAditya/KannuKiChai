@@ -32,3 +32,4 @@ Kannu ki Chai solves one everyday problem for students: **knowing whether the sh
 ### 4. Real-Time Sync & PWA
 - **Instant Cloud Sync**: WebSocket live push updates all connected student screens in <100ms without page reload.
 - **Progressive Web App (PWA)**: Installable directly on mobile home screens with offline caching support.
+

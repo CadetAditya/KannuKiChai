@@ -5,8 +5,8 @@
 
 body {
   font-family: var(--font-body);
-  background-color: #0b0704;
-  color: #f7eee4;
+  background-color: #f7f4ed;
+  color: #1c150f;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: transparent;
@@ -50,10 +50,10 @@ h1, h2, h3, h4, .font-heading {
 /* Pulsing radar rings for LIVE status */
 @keyframes status-pulse-green {
   0% {
-    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.6);
   }
   70% {
-    box-shadow: 0 0 0 20px rgba(16, 185, 129, 0);
+    box-shadow: 0 0 0 18px rgba(16, 185, 129, 0);
   }
   100% {
     box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
@@ -62,10 +62,10 @@ h1, h2, h3, h4, .font-heading {
 
 @keyframes status-pulse-red {
   0% {
-    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.6);
   }
   70% {
-    box-shadow: 0 0 0 20px rgba(239, 68, 68, 0);
+    box-shadow: 0 0 0 18px rgba(239, 68, 68, 0);
   }
   100% {
     box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
@@ -80,27 +80,29 @@ h1, h2, h3, h4, .font-heading {
   animation: status-pulse-red 2s infinite;
 }
 
-/* Glassmorphism styling */
+/* Glassmorphism Light Styling */
 .glass-panel {
-  background: rgba(22, 15, 10, 0.85);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(255, 138, 51, 0.15);
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(226, 212, 196, 0.8);
+  box-shadow: 0 10px 30px -5px rgba(80, 50, 20, 0.05);
 }
 
 .glass-card {
-  background: rgba(26, 18, 12, 0.9);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(232, 222, 210, 0.9);
+  box-shadow: 0 8px 24px -4px rgba(70, 40, 15, 0.07);
 }
 
 .glow-open {
-  box-shadow: 0 0 45px -5px rgba(16, 185, 129, 0.35);
+  box-shadow: 0 12px 40px -8px rgba(16, 185, 129, 0.22);
 }
 
 .glow-closed {
-  box-shadow: 0 0 45px -5px rgba(239, 68, 68, 0.35);
+  box-shadow: 0 12px 40px -8px rgba(239, 68, 68, 0.2);
 }
 
 /* Hide scrollbar for clean mobile horizontal sliders */

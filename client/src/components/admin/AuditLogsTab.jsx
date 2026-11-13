@@ -239,3 +239,4 @@ export default function AuditLogsTab() {
     </div>
   );
 }
+

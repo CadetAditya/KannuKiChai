@@ -32,7 +32,7 @@
     "mode": "auto",
     "manualOverrideExpiresAt": null,
     "currentNote": "Fresh adrak & elaichi chai brewing! Samosas fresh out of kadhai 🫖✨",
-    "updatedAt": "2026-11-13T05:20:08.924Z",
+    "updatedAt": "2026-11-13T05:29:25.540Z",
     "updatedBy": "Shopkeeper"
   },
   "auth": {
@@ -188,6 +188,111 @@
     }
   ],
   "logs": [
+    {
+      "id": "log-1794547765543-d7mnl",
+      "timestamp": "2026-11-13T05:29:25.543Z",
+      "actor": "Shopkeeper",
+      "action": "MENU_STOCK",
+      "details": "Garma Garam Samosa (2 pcs) marked as IN STOCK"
+    },
+    {
+      "id": "log-1794547765540-a5cue",
+      "timestamp": "2026-11-13T05:29:25.540Z",
+      "actor": "Shopkeeper",
+      "action": "STATUS_UPDATE",
+      "details": "Status updated by Shopkeeper. Mode: auto | Note: \"Fresh adrak & elaichi chai brewing! Samosas fresh out of kadhai 🫖✨\""
+    },
+    {
+      "id": "log-1794547765537-ullm0",
+      "timestamp": "2026-11-13T05:29:25.537Z",
+      "actor": "Super Admin",
+      "action": "GALLERY_REMOVE",
+      "details": "Removed photo: \"New Campus Sunset Chai\" from background rotation"
+    },
+    {
+      "id": "log-1794547765532-cb9py",
+      "timestamp": "2026-11-13T05:29:25.532Z",
+      "actor": "Super Admin",
+      "action": "GALLERY_TOGGLE",
+      "details": "New Campus Sunset Chai rotation visibility set to INACTIVE"
+    },
+    {
+      "id": "log-1794547765528-eaqao",
+      "timestamp": "2026-11-13T05:29:25.528Z",
+      "actor": "Super Admin",
+      "action": "GALLERY_ADD",
+      "details": "Added photo: \"New Campus Sunset Chai\" to background rotation"
+    },
+    {
+      "id": "log-1794547765509-7ll3n",
+      "timestamp": "2026-11-13T05:29:25.509Z",
+      "actor": "Super Admin",
+      "action": "SECURITY_UPDATE",
+      "details": "Access credentials or operator permissions updated."
+    },
+    {
+      "id": "log-1794547765500-mlatt",
+      "timestamp": "2026-11-13T05:29:25.501Z",
+      "actor": "Super Admin",
+      "action": "SECURITY_UPDATE",
+      "details": "Access credentials or operator permissions updated."
+    },
+    {
+      "id": "log-1794547765497-bbtzq",
+      "timestamp": "2026-11-13T05:29:25.497Z",
+      "actor": "Super Admin",
+      "action": "MENU_UPDATE",
+      "details": "Menu inventory and pricing structure updated."
+    },
+    {
+      "id": "log-1794547765493-4elw1",
+      "timestamp": "2026-11-13T05:29:25.493Z",
+      "actor": "Super Admin",
+      "action": "MENU_UPDATE",
+      "details": "Menu inventory and pricing structure updated."
+    },
+    {
+      "id": "log-1794547765488-b66pv",
+      "timestamp": "2026-11-13T05:29:25.488Z",
+      "actor": "Super Admin",
+      "action": "MENU_UPDATE",
+      "details": "Menu inventory and pricing structure updated."
+    },
+    {
+      "id": "log-1794547765485-n3iej",
+      "timestamp": "2026-11-13T05:29:25.485Z",
+      "actor": "Super Admin",
+      "action": "SETTINGS_UPDATE",
+      "details": "Store settings and shift timings updated."
+    },
+    {
+      "id": "log-1794547765479-7jt1w",
+      "timestamp": "2026-11-13T05:29:25.479Z",
+      "actor": "Shopkeeper",
+      "action": "MENU_STOCK",
+      "details": "Garma Garam Samosa (2 pcs) marked as SOLD OUT"
+    },
+    {
+      "id": "log-1794547765366-zw3bm",
+      "timestamp": "2026-11-13T05:29:25.366Z",
+      "actor": "Shopkeeper",
+      "action": "STATUS_UPDATE",
+      "details": "Status updated by Shopkeeper. Mode: manual_open | Note: \"Fresh Adrak & Cardamom Chai ready! ☕🔥\""
+    },
+    {
+      "id": "log-1794547765326-6v6ff",
+      "timestamp": "2026-11-13T05:29:25.326Z",
+      "actor": "Test Setup",
+      "action": "STATUS_UPDATE",
+      "details": "Status updated by Test Setup. Mode: auto"
+    },
+    {
+      "id": "log-1794547342234-a1afl",
+      "timestamp": "2026-11-13T05:22:22.234Z",
+      "actor": "Shopkeeper",
+      "action": "STATUS_UPDATE",
+      "details": "Status updated by Shopkeeper. Mode: manual_open | Note: \"Fresh adrak chai ready ☕🔥\""
+    },
     {
       "id": "log-1794547208926-y7omy",
       "timestamp": "2026-11-13T05:20:08.926Z",

@@ -75,22 +75,22 @@ export default function PinModal({ isOpen, onClose }) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/85 backdrop-blur-md animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-stone-900/60 backdrop-blur-sm animate-in fade-in duration-200">
       <div
         onClick={(e) => e.stopPropagation()}
-        className="w-full max-w-sm bg-[#130d09] border border-[#382214] rounded-t-3xl sm:rounded-3xl p-6 space-y-5 shadow-2xl"
+        className="w-full max-w-sm bg-[#faf7f2] border border-stone-200 rounded-t-3xl sm:rounded-3xl p-6 space-y-5 shadow-2xl text-stone-900"
       >
         {/* Header */}
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between border-b border-stone-200 pb-3">
           <div className="flex items-center gap-2">
-            <div className="p-2 rounded-xl bg-orange-500/15 text-orange-400 border border-orange-500/30">
+            <div className="p-2 rounded-xl bg-orange-100 text-orange-600 border border-orange-200">
               <KeyRound size={20} />
             </div>
             <div>
-              <h3 className="text-base font-bold text-white font-heading">
+              <h3 className="text-base font-bold text-stone-900 font-heading">
                 Staff & Admin Access
               </h3>
-              <p className="text-[11px] text-[#9a8274]">
+              <p className="text-[11px] text-stone-500 font-medium">
                 Enter 4-Digit Security PIN
               </p>
             </div>
@@ -100,7 +100,7 @@ export default function PinModal({ isOpen, onClose }) {
               sound.playTap();
               onClose();
             }}
-            className="p-1.5 rounded-full bg-white/5 text-[#a89080] hover:text-white"
+            className="p-1.5 rounded-full bg-stone-100 text-stone-500 hover:text-stone-900 hover:bg-stone-200"
           >
             <X size={18} />
           </button>
@@ -116,8 +116,8 @@ export default function PinModal({ isOpen, onClose }) {
                   key={idx}
                   className={`w-4 h-4 rounded-full border-2 transition-all ${
                     isFilled
-                      ? 'bg-orange-500 border-orange-400 scale-110 shadow-md shadow-orange-500/50'
-                      : 'border-[#42291a] bg-[#1a110b]'
+                      ? 'bg-orange-500 border-orange-500 scale-110 shadow-md shadow-orange-500/40'
+                      : 'border-stone-300 bg-white shadow-inner'
                   }`}
                 />
               );
@@ -126,12 +126,12 @@ export default function PinModal({ isOpen, onClose }) {
 
           {/* Error Message */}
           {error ? (
-            <div className="mt-3 flex items-center gap-1.5 text-xs text-rose-400 font-medium">
+            <div className="mt-3 flex items-center gap-1.5 text-xs text-rose-600 font-semibold">
               <AlertCircle size={14} />
               <span>{error}</span>
             </div>
           ) : (
-            <p className="mt-3 text-[11px] text-[#786153]">
+            <p className="mt-3 text-[11px] text-stone-500 font-medium">
               Shopkeeper PIN (1234) • Super Admin PIN (9999)
             </p>
           )}
@@ -143,7 +143,7 @@ export default function PinModal({ isOpen, onClose }) {
             <button
               key={num}
               onClick={() => handleDigit(String(num))}
-              className="py-3.5 rounded-2xl bg-[#1d130c] hover:bg-[#281a10] active:scale-95 active:bg-orange-500 active:text-white border border-[#382214] text-lg font-bold text-white font-mono transition-all shadow-sm"
+              className="py-3.5 rounded-2xl bg-white hover:bg-stone-50 active:scale-95 active:bg-orange-500 active:text-white border border-stone-200 text-lg font-bold text-stone-900 font-mono transition-all shadow-sm"
             >
               {num}
             </button>
@@ -152,7 +152,7 @@ export default function PinModal({ isOpen, onClose }) {
           {/* Clear */}
           <button
             onClick={handleClear}
-            className="py-3.5 rounded-2xl bg-[#170e08] hover:bg-[#20140c] active:scale-95 text-xs font-bold text-[#a89080] border border-[#2b190e] transition-all"
+            className="py-3.5 rounded-2xl bg-stone-100 hover:bg-stone-200 active:scale-95 text-xs font-bold text-stone-600 border border-stone-200 transition-all"
           >
             CLEAR
           </button>
@@ -160,7 +160,7 @@ export default function PinModal({ isOpen, onClose }) {
           {/* Zero */}
           <button
             onClick={() => handleDigit('0')}
-            className="py-3.5 rounded-2xl bg-[#1d130c] hover:bg-[#281a10] active:scale-95 active:bg-orange-500 active:text-white border border-[#382214] text-lg font-bold text-white font-mono transition-all shadow-sm"
+            className="py-3.5 rounded-2xl bg-white hover:bg-stone-50 active:scale-95 active:bg-orange-500 active:text-white border border-stone-200 text-lg font-bold text-stone-900 font-mono transition-all shadow-sm"
           >
             0
           </button>
@@ -168,7 +168,7 @@ export default function PinModal({ isOpen, onClose }) {
           {/* Backspace */}
           <button
             onClick={handleBackspace}
-            className="py-3.5 rounded-2xl bg-[#170e08] hover:bg-[#20140c] active:scale-95 flex items-center justify-center text-[#a89080] hover:text-white border border-[#2b190e] transition-all"
+            className="py-3.5 rounded-2xl bg-stone-100 hover:bg-stone-200 active:scale-95 flex items-center justify-center text-stone-600 hover:text-stone-900 border border-stone-200 transition-all"
           >
             <Delete size={20} />
           </button>
@@ -177,3 +177,4 @@ export default function PinModal({ isOpen, onClose }) {
     </div>
   );
 }
+
