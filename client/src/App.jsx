@@ -6,6 +6,7 @@ import StatusCard from './components/StatusCard';
 import LiveNotesBanner from './components/LiveNotesBanner';
 import WhatsAppShare from './components/WhatsAppShare';
 import ScheduleModal from './components/ScheduleModal';
+import StudentMenu from './components/StudentMenu';
 
 function Header() {
   const { settings, activeViewers, connected } = useRealtime();
@@ -79,6 +80,9 @@ function MainContent() {
 
         {/* 1-Tap WhatsApp Sharing */}
         <WhatsAppShare />
+
+        {/* Live Menu & Availability */}
+        <StudentMenu />
       </main>
 
       {/* Tapri Shift Timings Drawer */}
