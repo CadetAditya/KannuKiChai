@@ -8,6 +8,7 @@ import WhatsAppShare from './components/WhatsAppShare';
 import ScheduleModal from './components/ScheduleModal';
 import StudentMenu from './components/StudentMenu';
 import PinModal from './components/PinModal';
+import OperatorView from './components/OperatorView';
 
 function Header() {
   const { settings, activeViewers, connected } = useRealtime();
@@ -74,36 +75,42 @@ function MainContent() {
     <div className="min-h-screen flex flex-col bg-[#0b0704] text-[#f7eee4]">
       <Header />
       <main className="flex-1 max-w-md w-full mx-auto px-4 py-4 pb-24 space-y-4">
-        {/* Large High-Contrast Status Card */}
-        <StatusCard onOpenSchedule={() => setShowSchedule(true)} />
+        {authRole === 'operator' ? (
+          <OperatorView />
+        ) : (
+          <>
+            {/* Large High-Contrast Status Card */}
+            <StatusCard onOpenSchedule={() => setShowSchedule(true)} />
 
-        {/* Live Shop Notes Banner */}
-        <LiveNotesBanner />
+            {/* Live Shop Notes Banner */}
+            <LiveNotesBanner />
 
-        {/* 1-Tap WhatsApp Sharing */}
-        <WhatsAppShare />
+            {/* 1-Tap WhatsApp Sharing */}
+            <WhatsAppShare />
 
-        {/* Live Menu & Availability */}
-        <StudentMenu />
+            {/* Live Menu & Availability */}
+            <StudentMenu />
 
-        {/* Footer with Subtle Padlock */}
-        <footer className="pt-8 pb-4 text-center space-y-2">
-          <p className="text-[11px] text-[#786153]">
-            Kannu ki Chai • Built for campus life ☕
-          </p>
-          <div className="flex items-center justify-center gap-4">
-            <button
-              onClick={() => {
-                sound.playTap();
-                setShowPinModal(true);
-              }}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#170e09] hover:bg-[#22150e] border border-[#2e1d13] text-[11px] font-medium text-[#9a8274] hover:text-[#d4bca9] transition-all"
-            >
-              <Lock size={12} className="text-orange-400" />
-              <span>Staff Login</span>
-            </button>
-          </div>
-        </footer>
+            {/* Footer with Subtle Padlock */}
+            <footer className="pt-8 pb-4 text-center space-y-2">
+              <p className="text-[11px] text-[#786153]">
+                Kannu ki Chai • Built for campus life ☕
+              </p>
+              <div className="flex items-center justify-center gap-4">
+                <button
+                  onClick={() => {
+                    sound.playTap();
+                    setShowPinModal(true);
+                  }}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#170e09] hover:bg-[#22150e] border border-[#2e1d13] text-[11px] font-medium text-[#9a8274] hover:text-[#d4bca9] transition-all"
+                >
+                  <Lock size={12} className="text-orange-400" />
+                  <span>Staff Login</span>
+                </button>
+              </div>
+            </footer>
+          </>
+        )}
       </main>
 
       {/* Tapri Shift Timings Drawer */}
