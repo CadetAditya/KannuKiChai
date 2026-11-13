@@ -143,6 +143,43 @@ const DEFAULT_STATE = {
       description: 'Chilled freshly squeezed lemonade with black salt and roasted cumin'
     }
   ],
+  gallery: [
+    {
+      id: 'g-1',
+      title: 'Hostel Chai Cheers',
+      url: '/gallery/chai-cheers.jpg',
+      active: true,
+      addedAt: new Date().toISOString()
+    },
+    {
+      id: 'g-2',
+      title: 'Winter Kulhad Warmth',
+      url: '/gallery/kulhad-winter.jpg',
+      active: true,
+      addedAt: new Date().toISOString()
+    },
+    {
+      id: 'g-3',
+      title: 'Ek Chai Wali Dosti',
+      url: '/gallery/ek-chai-dosti.jpg',
+      active: true,
+      addedAt: new Date().toISOString()
+    },
+    {
+      id: 'g-4',
+      title: 'Smiley Tapri Cups',
+      url: '/gallery/cute-cups.jpg',
+      active: true,
+      addedAt: new Date().toISOString()
+    },
+    {
+      id: 'g-5',
+      title: 'Evening Hostel Circle',
+      url: '/gallery/hostel-circle.jpg',
+      active: true,
+      addedAt: new Date().toISOString()
+    }
+  ],
   logs: [
     {
       id: 'log-1',
@@ -175,6 +212,7 @@ class Store {
           status: { ...DEFAULT_STATE.status, ...(parsed.status || {}) },
           auth: { ...DEFAULT_STATE.auth, ...(parsed.auth || {}) },
           menu: Array.isArray(parsed.menu) ? parsed.menu : DEFAULT_STATE.menu,
+          gallery: Array.isArray(parsed.gallery) && parsed.gallery.length > 0 ? parsed.gallery : DEFAULT_STATE.gallery,
           logs: Array.isArray(parsed.logs) ? parsed.logs : DEFAULT_STATE.logs
         };
       } else {
@@ -295,6 +333,44 @@ class Store {
     this.persist();
     this.notify('MENU_UPDATED', this.data.menu);
     return this.data.menu;
+  }
+
+  addGalleryPhoto(photo, actor = 'Super Admin') {
+    if (!this.data.gallery) this.data.gallery = [];
+    const newPhoto = {
+      id: `g-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`,
+      title: photo.title || 'Tapri Moment',
+      url: photo.url,
+      active: photo.active !== false,
+      addedAt: new Date().toISOString()
+    };
+    this.data.gallery.unshift(newPhoto);
+    this.addLog(actor, 'GALLERY_ADD', `Added photo: "${newPhoto.title}" to background rotation`);
+    this.persist();
+    this.notify('GALLERY_UPDATED', this.data.gallery);
+    return newPhoto;
+  }
+
+  removeGalleryPhoto(photoId, actor = 'Super Admin') {
+    if (!this.data.gallery) return false;
+    const photo = this.data.gallery.find(p => p.id === photoId);
+    if (!photo) return false;
+    this.data.gallery = this.data.gallery.filter(p => p.id !== photoId);
+    this.addLog(actor, 'GALLERY_REMOVE', `Removed photo: "${photo.title}" from background rotation`);
+    this.persist();
+    this.notify('GALLERY_UPDATED', this.data.gallery);
+    return true;
+  }
+
+  toggleGalleryPhoto(photoId, active, actor = 'Super Admin') {
+    if (!this.data.gallery) return null;
+    const photo = this.data.gallery.find(p => p.id === photoId);
+    if (!photo) return null;
+    photo.active = active;
+    this.addLog(actor, 'GALLERY_TOGGLE', `${photo.title} rotation visibility set to ${active ? 'ACTIVE' : 'INACTIVE'}`);
+    this.persist();
+    this.notify('GALLERY_UPDATED', this.data.gallery);
+    return photo;
   }
 
   clearLogs(actor = 'Super Admin') {

@@ -37,13 +37,17 @@ app.get('/api/status', (req, res) => {
 // Mount Operator & Admin API routes
 app.use('/api', routes);
 
-// Serve PWA manifest, service worker, and icons
+// Serve PWA manifest, service worker, icons, and gallery photos
 const distPath = path.join(__dirname, '..', 'dist');
 const clientPath = path.join(__dirname, '..', 'client');
+const galleryPath = path.join(clientPath, 'public', 'gallery');
+const uploadsPath = path.join(__dirname, '..', 'data', 'uploads');
 
 app.use('/manifest.webmanifest', express.static(path.join(clientPath, 'manifest.webmanifest')));
 app.use('/sw.js', express.static(path.join(clientPath, 'sw.js')));
 app.use('/favicon.svg', express.static(path.join(clientPath, 'favicon.svg')));
+app.use('/gallery', express.static(galleryPath));
+app.use('/uploads', express.static(uploadsPath));
 
 // Serve built frontend assets
 if (fs.existsSync(distPath)) {

@@ -48,6 +48,8 @@ async function runEndToEndTests() {
     // TEST 2: Hybrid Auto-Scheduler Shifts
     // ----------------------------------------------------
     console.log('\n--- 2. Shift Timings & Countdown Engine ---');
+    store.updateStatus({ mode: 'auto', manualOverrideExpiresAt: null }, 'Test Setup');
+
     const morningTest = computeLiveStatus(new Date('2026-11-13T09:00:00'));
     console.assert(morningTest.isOpen === true, 'Morning 9 AM should be OPEN');
     console.assert(morningTest.statusText === 'OPEN NOW', 'Morning status text mismatch');
@@ -217,6 +219,44 @@ async function runEndToEndTests() {
     const html = await req('/');
     console.assert(html.status === 200 && html.raw.includes('Kannu ki Chai'), 'Root HTML check failed');
     console.log('✅ PWA Manifest, Service Worker, and App Shell served cleanly');
+
+    // ----------------------------------------------------
+    // TEST 8: Aesthetic Background Gallery & Admin Controls
+    // ----------------------------------------------------
+    console.log('\n--- 8. Background Photos & Admin Gallery Controls ---');
+    const galleryRes = await req('/api/gallery');
+    console.assert(galleryRes.status === 200 && Array.isArray(galleryRes.data.gallery), 'Gallery fetch failed');
+    console.assert(galleryRes.data.gallery.length >= 5, 'Initial 5 gallery photos missing');
+    console.log(`✅ Initial gallery rotation contains ${galleryRes.data.gallery.length} photos`);
+
+    // Admin adds a test photo
+    const addPhotoRes = await req('/api/admin/gallery', {
+      method: 'POST',
+      headers: { 'x-admin-pin': '9999' },
+      body: JSON.stringify({
+        title: 'New Campus Sunset Chai',
+        url: '/gallery/chai-cheers.jpg',
+        active: true
+      })
+    });
+    console.assert(addPhotoRes.status === 200 && addPhotoRes.data.photo !== undefined, 'Admin add photo failed');
+    const addedPhotoId = addPhotoRes.data.photo.id;
+
+    // Admin toggles active
+    const togglePhotoRes = await req(`/api/admin/gallery/${addedPhotoId}/toggle`, {
+      method: 'PATCH',
+      headers: { 'x-admin-pin': '9999' },
+      body: JSON.stringify({ active: false })
+    });
+    console.assert(togglePhotoRes.status === 200 && togglePhotoRes.data.photo.active === false, 'Toggle active failed');
+
+    // Admin deletes photo
+    const deletePhotoRes = await req(`/api/admin/gallery/${addedPhotoId}`, {
+      method: 'DELETE',
+      headers: { 'x-admin-pin': '9999' }
+    });
+    console.assert(deletePhotoRes.status === 200, 'Delete photo failed');
+    console.log('✅ Admin Gallery Controls: Add, Toggle visibility, and Remove photo verified');
 
     // Reset status back to auto & samosa in-stock
     await req('/api/operator/status', {

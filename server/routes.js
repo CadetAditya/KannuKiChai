@@ -1,6 +1,13 @@
 import express from 'express';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import store from './store.js';
 import { computeLiveStatus } from './scheduler.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const UPLOADS_DIR = path.join(__dirname, '..', 'data', 'uploads');
 
 const router = express.Router();
 
@@ -252,6 +259,108 @@ router.post('/admin/logs/clear', requireAdmin, (req, res) => {
   res.json({
     success: true,
     message: 'Logs cleared successfully'
+  });
+});
+
+// 8. Admin: Gallery Management (Upload, Add, Remove, Toggle)
+router.get('/gallery', (req, res) => {
+  const state = store.getState();
+  res.json({
+    gallery: state.gallery || []
+  });
+});
+
+router.post('/admin/gallery', requireAdmin, (req, res) => {
+  const { title, url, active } = req.body;
+  if (!url) {
+    return res.status(400).json({ error: 'Image URL is required.' });
+  }
+
+  const newPhoto = store.addGalleryPhoto({ title, url, active }, req.actor);
+  res.json({
+    success: true,
+    photo: newPhoto,
+    gallery: store.getState().gallery
+  });
+});
+
+router.post('/admin/gallery/upload', requireAdmin, (req, res) => {
+  const { title, base64, filename } = req.body;
+  if (!base64) {
+    return res.status(400).json({ error: 'Base64 image data is required.' });
+  }
+
+  try {
+    if (!fs.existsSync(UPLOADS_DIR)) {
+      fs.mkdirSync(UPLOADS_DIR, { recursive: true });
+    }
+
+    // Extract raw base64 data
+    const matches = base64.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
+    let buffer;
+    let ext = '.jpg';
+
+    if (matches && matches.length === 3) {
+      const mime = matches[1];
+      if (mime.includes('png')) ext = '.png';
+      else if (mime.includes('webp')) ext = '.webp';
+      buffer = Buffer.from(matches[2], 'base64');
+    } else {
+      buffer = Buffer.from(base64, 'base64');
+    }
+
+    const safeName = `photo-${Date.now()}-${Math.random().toString(36).substring(2, 6)}${ext}`;
+    const filePath = path.join(UPLOADS_DIR, safeName);
+    fs.writeFileSync(filePath, buffer);
+
+    const publicUrl = `/uploads/${safeName}`;
+    const photo = store.addGalleryPhoto({
+      title: title || 'Uploaded Tapri Photo',
+      url: publicUrl,
+      active: true
+    }, req.actor);
+
+    res.json({
+      success: true,
+      photo,
+      gallery: store.getState().gallery
+    });
+  } catch (err) {
+    console.error('Upload error:', err);
+    res.status(500).json({ error: 'Failed to save uploaded photo' });
+  }
+});
+
+router.delete('/admin/gallery/:id', requireAdmin, (req, res) => {
+  const { id } = req.params;
+  const removed = store.removeGalleryPhoto(id, req.actor);
+  if (!removed) {
+    return res.status(404).json({ error: 'Photo not found.' });
+  }
+
+  res.json({
+    success: true,
+    deletedId: id,
+    gallery: store.getState().gallery
+  });
+});
+
+router.patch('/admin/gallery/:id/toggle', requireAdmin, (req, res) => {
+  const { id } = req.params;
+  const { active } = req.body;
+  if (typeof active !== 'boolean') {
+    return res.status(400).json({ error: 'Active boolean is required.' });
+  }
+
+  const updated = store.toggleGalleryPhoto(id, active, req.actor);
+  if (!updated) {
+    return res.status(404).json({ error: 'Photo not found.' });
+  }
+
+  res.json({
+    success: true,
+    photo: updated,
+    gallery: store.getState().gallery
   });
 });
 

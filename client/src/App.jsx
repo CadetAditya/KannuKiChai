@@ -11,6 +11,7 @@ import PinModal from './components/PinModal';
 import OperatorView from './components/OperatorView';
 import AdminDashboard from './components/admin/AdminDashboard';
 import InstallPrompt from './components/InstallPrompt';
+import AestheticBackground from './components/AestheticBackground';
 
 function Header() {
   const { settings, activeViewers, connected } = useRealtime();
@@ -74,9 +75,12 @@ function MainContent() {
   const [showPinModal, setShowPinModal] = useState(false);
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#0b0704] text-[#f7eee4]">
+    <div className="relative min-h-screen flex flex-col bg-[#0b0704] text-[#f7eee4]">
+      {/* Aesthetic rotating tapri background photos with Ken Burns effect */}
+      <AestheticBackground />
+
       <Header />
-      <main className="flex-1 max-w-md w-full mx-auto px-4 py-4 pb-24 space-y-4">
+      <main className="relative z-10 flex-1 max-w-md w-full mx-auto px-4 py-4 pb-28 space-y-4">
         {authRole === 'admin' ? (
           <AdminDashboard />
         ) : authRole === 'operator' ? (

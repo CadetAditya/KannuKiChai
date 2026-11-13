@@ -34,6 +34,7 @@ export function RealtimeProvider({ children }) {
       }
     },
     menu: [],
+    gallery: [],
     operatorEnabled: true,
     activeViewers: 1,
     serverTime: new Date().toISOString()
@@ -151,6 +152,13 @@ export function RealtimeProvider({ children }) {
         setData(prev => ({
           ...prev,
           menu: Array.isArray(msg.payload) ? msg.payload : msg.payload.menu || prev.menu
+        }));
+        break;
+
+      case 'GALLERY_UPDATED':
+        setData(prev => ({
+          ...prev,
+          gallery: Array.isArray(msg.payload) ? msg.payload : msg.payload.gallery || prev.gallery
         }));
         break;
 
