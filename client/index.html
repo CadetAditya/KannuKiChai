@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <title>Kannu ki Chai ☕ • Campus Tapri Live Status</title>
+    
+    <!-- Meta & SEO -->
+    <meta name="description" content="Live open/closed status, countdown, shop notes, and menu for Kannu ki Chai campus tapri." />
+    <meta name="theme-color" content="#120c08" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="KannuKiChai" />
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Tailwind CDN for fast reliable styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              tapri: {
+                dark: '#0c0805',
+                card: '#160f0a',
+                border: '#2a1a10',
+                accent: '#ea580c',
+                kulhad: '#d97706',
+                muted: '#9a8274',
+                light: '#f5ebe1'
+              }
+            },
+            fontFamily: {
+              heading: ['Outfit', 'sans-serif'],
+              body: ['Plus Jakarta Sans', 'sans-serif']
+            }
+          }
+        }
+      }
+    </script>
+    
+    <!-- PWA Manifest link -->
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body class="bg-[#0f0b08] text-[#f7eee4] antialiased select-none selection:bg-[#ff7a29] selection:text-white">
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

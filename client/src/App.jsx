@@ -1,0 +1,84 @@
+import React, { useState } from 'react';
+import { RealtimeProvider, useRealtime } from './context/RealtimeContext';
+import { Lock, Volume2, VolumeX, Radio, Sparkles } from 'lucide-react';
+import { sound } from './utils/sound';
+
+function Header() {
+  const { settings, activeViewers, connected } = useRealtime();
+  const [soundOn, setSoundOn] = useState(sound.enabled);
+
+  const toggleSound = () => {
+    const next = sound.toggleSound();
+    setSoundOn(next);
+  };
+
+  return (
+    <header className="sticky top-0 z-30 px-4 py-3 bg-[#0d0906]/90 backdrop-blur-md border-b border-[#2a1a10]">
+      <div className="max-w-md mx-auto flex items-center justify-between">
+        <div className="flex items-center gap-2.5">
+          <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-amber-600 via-orange-600 to-amber-800 p-0.5 shadow-lg shadow-orange-950/40 flex items-center justify-center">
+            <div className="w-full h-full bg-[#170f0a] rounded-[14px] flex items-center justify-center text-xl">
+              ☕
+            </div>
+          </div>
+          <div>
+            <h1 className="text-lg font-black tracking-tight text-white flex items-center gap-1.5 font-heading">
+              {settings.shopName}
+              <span className="text-[10px] uppercase font-bold tracking-widest px-1.5 py-0.5 rounded bg-orange-500/20 text-orange-400 border border-orange-500/30">
+                Tapri
+              </span>
+            </h1>
+            <p className="text-[11px] text-[#a89080] line-clamp-1">
+              {settings.tagline}
+            </p>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-2">
+          {/* Active Viewers Indicator */}
+          <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#1b120c] border border-[#382214] text-[11px] text-[#d4bca9]">
+            <span className="relative flex h-2 w-2">
+              <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${connected ? 'bg-emerald-400' : 'bg-amber-400'}`}></span>
+              <span className={`relative inline-flex rounded-full h-2 w-2 ${connected ? 'bg-emerald-500' : 'bg-amber-500'}`}></span>
+            </span>
+            <span className="font-semibold text-xs text-white">{activeViewers}</span>
+            <span className="hidden xs:inline text-[10px] text-[#9a8274]">live</span>
+          </div>
+
+          {/* Sound Toggle */}
+          <button
+            onClick={toggleSound}
+            aria-label="Toggle Sound"
+            className="p-2 rounded-xl bg-[#1b120c] border border-[#382214] text-[#d4bca9] hover:text-white active:scale-95 transition-all"
+          >
+            {soundOn ? <Volume2 size={16} /> : <VolumeX size={16} className="text-[#886d5d]" />}
+          </button>
+        </div>
+      </div>
+    </header>
+  );
+}
+
+function MainContent() {
+  const { authRole } = useRealtime();
+
+  return (
+    <div className="min-h-screen flex flex-col bg-[#0b0704] text-[#f7eee4]">
+      <Header />
+      <main className="flex-1 max-w-md w-full mx-auto px-4 py-4 pb-24 space-y-4">
+        {/* Placeholder for View switching - next commits will expand these */}
+        <div className="text-center py-6 text-sm text-[#9a8274]">
+          Live View Loading...
+        </div>
+      </main>
+    </div>
+  );
+}
+
+export default function App() {
+  return (
+    <RealtimeProvider>
+      <MainContent />
+    </RealtimeProvider>
+  );
+}
