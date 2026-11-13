@@ -33,11 +33,8 @@ function Header() {
             </div>
           </div>
           <div>
-            <h1 className="text-lg font-black tracking-tight text-stone-900 flex items-center gap-1.5 font-heading">
+            <h1 className="text-lg font-black tracking-tight text-stone-900 font-heading">
               {settings.shopName}
-              <span className="text-[10px] uppercase font-bold tracking-widest px-2 py-0.5 rounded-full bg-orange-100 text-orange-700 border border-orange-200">
-                Live
-              </span>
             </h1>
             <p className="text-[11px] text-stone-500 line-clamp-1 font-medium">
               {settings.tagline}

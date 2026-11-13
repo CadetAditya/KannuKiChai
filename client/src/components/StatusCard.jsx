@@ -28,7 +28,10 @@ export default function StatusCard({ onOpenSchedule }) {
 
   const formatCountdown = () => {
     if (secondsRemaining <= 0) {
-      return liveStatus.countdownText || 'Schedule in transition...';
+      if (liveStatus.countdownText && !liveStatus.countdownText.toLowerCase().includes('manual')) {
+        return liveStatus.countdownText;
+      }
+      return liveStatus.isOpen ? 'Serving Fresh Chai ☕' : 'Currently Closed';
     }
     const hours = Math.floor(secondsRemaining / 3600);
     const minutes = Math.floor((secondsRemaining % 3600) / 60);
@@ -60,39 +63,6 @@ export default function StatusCard({ onOpenSchedule }) {
           : 'bg-white/95 border-2 border-rose-400 shadow-2xl shadow-rose-800/10 glow-closed'
       }`}
     >
-      {/* Top Banner Tag */}
-      <div className="flex items-center justify-between gap-2 mb-3">
-        <div
-          className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold tracking-wide uppercase ${
-            isOpen
-              ? 'bg-emerald-50 text-emerald-800 border border-emerald-200'
-              : 'bg-rose-50 text-rose-800 border border-rose-200'
-          }`}
-        >
-          <span className="relative flex h-2.5 w-2.5">
-            <span
-              className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${
-                isOpen ? 'bg-emerald-500' : 'bg-rose-500'
-              }`}
-            ></span>
-            <span
-              className={`relative inline-flex rounded-full h-2.5 w-2.5 ${
-                isOpen ? 'bg-emerald-500' : 'bg-rose-500'
-              }`}
-            ></span>
-          </span>
-          <span>
-            {liveStatus.badgeText || (isOpen ? 'Shift Live' : 'Currently Paused')}
-          </span>
-        </div>
-
-        {/* Live sync badge in light style */}
-        <div className="text-[11px] font-semibold text-stone-500 flex items-center gap-1 bg-stone-100/90 px-2.5 py-0.5 rounded-full border border-stone-200">
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-          <span>Live Sync</span>
-        </div>
-      </div>
-
       {/* Steaming Chai or Sleeping Kettle */}
       <div className="my-2">
         <ChaiSteamingCup isOpen={isOpen} />
@@ -121,10 +91,12 @@ export default function StatusCard({ onOpenSchedule }) {
         </div>
 
         {/* Shift Details & Next Action */}
-        <p className="mt-3.5 text-xs text-stone-700 max-w-xs mx-auto line-clamp-1 font-semibold">
-          {liveStatus.currentShift ? `Current: ${liveStatus.currentShift}` : ''}
-        </p>
-        {liveStatus.nextAction && (
+        {liveStatus.currentShift && !liveStatus.currentShift.toLowerCase().includes('manual') && (
+          <p className="mt-3.5 text-xs text-stone-700 max-w-xs mx-auto line-clamp-1 font-semibold">
+            {`Current: ${liveStatus.currentShift}`}
+          </p>
+        )}
+        {liveStatus.nextAction && !liveStatus.nextAction.toLowerCase().includes('auto schedule') && (
           <p className="text-[11px] text-stone-500 mt-0.5">
             {liveStatus.nextAction}
           </p>

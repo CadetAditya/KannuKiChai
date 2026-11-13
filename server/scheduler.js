@@ -45,7 +45,7 @@ export function computeLiveStatus(now = new Date()) {
 
   // Handle Manual Overrides
   if (status.mode === 'manual_open') {
-    let countdownText = 'Manual Open Mode';
+    let countdownText = 'Serving Fresh Chai ☕';
     let targetTime = null;
     let secondsLeft = null;
 
@@ -54,7 +54,7 @@ export function computeLiveStatus(now = new Date()) {
       secondsLeft = Math.max(0, Math.floor((expiresAt.getTime() - now.getTime()) / 1000));
       const mins = Math.floor(secondsLeft / 60);
       const secs = secondsLeft % 60;
-      countdownText = `Manual open ends in ${mins}m ${secs}s`;
+      countdownText = `Open for another ${mins}m ${secs}s`;
       targetTime = expiresAt.toISOString();
     }
 
@@ -62,13 +62,13 @@ export function computeLiveStatus(now = new Date()) {
       isOpen: true,
       mode: 'manual_open',
       statusText: 'OPEN NOW',
-      badgeText: 'Manual Override',
+      badgeText: '',
       accentColor: 'emerald',
       countdownText,
       targetTime,
       secondsLeft,
-      currentShift: 'Manual Open Shift',
-      nextAction: 'Reverts to Auto schedule when reset',
+      currentShift: 'Open for Orders',
+      nextAction: '',
       currentNote: status.currentNote,
       updatedAt: status.updatedAt,
       updatedBy: status.updatedBy
@@ -93,13 +93,13 @@ export function computeLiveStatus(now = new Date()) {
       isOpen: false,
       mode: 'manual_closed',
       statusText: 'CLOSED',
-      badgeText: 'Tapri Break / Paused',
+      badgeText: '',
       accentColor: 'rose',
       countdownText,
       targetTime,
       secondsLeft,
-      currentShift: 'Manual Paused',
-      nextAction: 'Tapri is taking a break or closed early',
+      currentShift: 'Tapri on short break',
+      nextAction: '',
       currentNote: status.currentNote,
       updatedAt: status.updatedAt,
       updatedBy: status.updatedBy
