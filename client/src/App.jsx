@@ -7,6 +7,7 @@ import LiveNotesBanner from './components/LiveNotesBanner';
 import WhatsAppShare from './components/WhatsAppShare';
 import ScheduleModal from './components/ScheduleModal';
 import StudentMenu from './components/StudentMenu';
+import PinModal from './components/PinModal';
 
 function Header() {
   const { settings, activeViewers, connected } = useRealtime();
@@ -67,6 +68,7 @@ function Header() {
 function MainContent() {
   const { authRole } = useRealtime();
   const [showSchedule, setShowSchedule] = useState(false);
+  const [showPinModal, setShowPinModal] = useState(false);
 
   return (
     <div className="min-h-screen flex flex-col bg-[#0b0704] text-[#f7eee4]">
@@ -83,10 +85,32 @@ function MainContent() {
 
         {/* Live Menu & Availability */}
         <StudentMenu />
+
+        {/* Footer with Subtle Padlock */}
+        <footer className="pt-8 pb-4 text-center space-y-2">
+          <p className="text-[11px] text-[#786153]">
+            Kannu ki Chai • Built for campus life ☕
+          </p>
+          <div className="flex items-center justify-center gap-4">
+            <button
+              onClick={() => {
+                sound.playTap();
+                setShowPinModal(true);
+              }}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#170e09] hover:bg-[#22150e] border border-[#2e1d13] text-[11px] font-medium text-[#9a8274] hover:text-[#d4bca9] transition-all"
+            >
+              <Lock size={12} className="text-orange-400" />
+              <span>Staff Login</span>
+            </button>
+          </div>
+        </footer>
       </main>
 
       {/* Tapri Shift Timings Drawer */}
       <ScheduleModal isOpen={showSchedule} onClose={() => setShowSchedule(false)} />
+
+      {/* Security PIN Keypad Modal */}
+      <PinModal isOpen={showPinModal} onClose={() => setShowPinModal(false)} />
     </div>
   );
 }
