@@ -5,8 +5,9 @@ import { sound } from '../../utils/sound';
 import StoreSettingsTab from './StoreSettingsTab';
 import MenuManagerTab from './MenuManagerTab';
 import SecurityTab from './SecurityTab';
+import AuditLogsTab from './AuditLogsTab';
 
-export default function AdminDashboard({ childrenLogs }) {
+export default function AdminDashboard() {
   const { logout, settings } = useRealtime();
   const [activeTab, setActiveTab] = useState('settings'); // 'settings' | 'menu' | 'security' | 'logs'
 
@@ -68,7 +69,7 @@ export default function AdminDashboard({ childrenLogs }) {
         {activeTab === 'settings' && <StoreSettingsTab />}
         {activeTab === 'menu' && <MenuManagerTab />}
         {activeTab === 'security' && <SecurityTab />}
-        {activeTab === 'logs' && (childrenLogs || <div className="text-center py-8 text-xs text-[#8a7263]">Audit logs loading...</div>)}
+        {activeTab === 'logs' && <AuditLogsTab />}
       </div>
     </div>
   );
